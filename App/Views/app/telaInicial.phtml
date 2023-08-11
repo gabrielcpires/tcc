@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg menu">
+		<div class="container">
+			<div class="navbar-nav">
+				<a class="menuItem" href="/telaInicial">
+					Home
+				</a>
+
+				<a class="menuItem" href="/sair">
+					Sair
+				</a>
+				<img src="/img/twitter_logo.png" class="menuIco" />
+			</div>
+		</div>
+	</nav>
+
+
+
+
+	<div class="container mt-5">
+
+		<div class="row pt-2">
+
+			<div class="col-md-3">
+
+				<div class="perfil">
+					<div class="perfilTopo">
+
+					</div>
+
+					<div class="perfilPainel">
+
+						<div class="row mt-2 mb-2">
+							<div class="col mb-2">
+								<span class="perfilPainelNome">
+									<?php echo $_SESSION['nome']; ?>
+								</span>
+							</div>
+						</div>
+
+						<!-- <div class="row mb-2">
+
+						<div class="col">
+							<span class="perfilPainelItem">Tweets</span><br />
+							<span class="perfilPainelItemValor">0</span>
+						</div>
+
+						<div class="col">
+							<span class="perfilPainelItem">Seguindo</span><br />
+							<span class="perfilPainelItemValor">0</span>
+						</div>
+
+						<div class="col">
+							<span class="perfilPainelItem">Seguidores</span><br />
+							<span class="perfilPainelItemValor">0</span>
+						</div>
+
+					</div> -->
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-md-6">
+				<div class="row mb-2">
+					<div class="col tweetBox">
+						<form action="/fazerPublicacao">
+							<div class="col mt-2 d-flex justify-content-end">
+								<button type="submit" class="btn btn-primary">Fazer Publicação</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+				<?php foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
+					<div class="row tweet">
+						<div class="col">
+							<p class="font-weight-bold">
+								<?php echo $publicacao['nome'] ?>
+								<small><span class="text text-muted">-
+										<?php echo $publicacao['data'] . ' - ' . $publicacao['nome_estado'] ?>
+									</span></small>
+							</p>
+							<p><strong>
+									<?php echo $publicacao['titulo'] ?>
+								</strong></p>
+							<p>
+								<?php echo $publicacao['texto'] ?>
+							</p>
+							<?php if ($publicacao['path'] != "") { ?>
+								<img src="<?php echo "/" . $publicacao['path']; ?>" alt="" class="img-fluid">
+							<?php } ?>
+							<!-- <p><a href="<?php echo $publicacao['path'] ?>"><?php echo $publicacao['path'] ?></a></p> -->
+							<br />
+							<br>
+							<form>
+								<div class="col d-flex justify-content-end">
+									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
+								</div>
+							</form>
+						</div>
+					</div>
+				<?php } ?>
+				<div class="row mt-5">
+					<nav aria-label="...">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="?pagina=1" tabindex="-1">Primeira</a>
+							</li>
+							<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
+
+								<li class="page-item <?php echo $this->view->pagina_ativa ==$i ? 'active' : '' ?>">
+									<a class="page-link " href="?pagina=<?php echo $i ?>"><?php echo $i ?></a>
+								</li>
+
+								<li class="page-item">
+								<?php } ?>
+								<a class="page-link"
+									href="?pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+
+			<div class="col-md-3">
+				<div class="quemSeguir">
+					<span class="quemSeguirTitulo">Quem seguir</span><br />
+					<hr />
+					<a href="#" class="quemSeguirTxt">Procurar por pessoas conhecidas</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+</html>
