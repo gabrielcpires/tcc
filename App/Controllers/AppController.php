@@ -47,6 +47,7 @@ class AppController extends Action{
         $objEstados = Container::getModel('ClassEstados');
         $estados = $objEstados->getAll();
         $this->view->estados = $estados;
+        $this->barraNavegacao();
         
         $this->render('fazerPublicacao'); 
         
@@ -101,6 +102,19 @@ class AppController extends Action{
         if (!isset($_SESSION['id']) || empty($_SESSION['id']) || !isset($_SESSION['nome']) || empty($_SESSION['nome'])){
             header('Location: /?login=erro');
         } 
+    }
+
+    public function barraNavegacao(){
+        echo '<nav class="navbar navbar-expand-lg menu">
+		<div class="container">
+			<div class="navbar-nav">
+				<a class="menuItem" href="/sair">
+					Sair
+				</a>
+				<a class="menuItem" href="/telaInicial"><img src="/img/twitter_logo.png" class="menuIco" /></a>
+			</div>
+		</div>
+	</nav>';
     }
 
     
