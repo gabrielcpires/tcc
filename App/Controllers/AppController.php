@@ -49,7 +49,7 @@ class AppController extends Action{
         $this->view->estados = $estados;
         $this->barraNavegacao();
         
-        $this->render('perfil'); 
+        $this->render('fazerPublicacao'); 
         
     }
     public function publicar(){
