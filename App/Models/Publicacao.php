@@ -67,7 +67,7 @@ class Publicacao extends Model {
 
         $query = "
             select 
-                p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, p.id_estado,e.nome_estado, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+                p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, p.id_estado,e.nome_estado, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
             from 
                 publicacoes as p
                 left join usuarios as u on (p.id_usuario = u.id)

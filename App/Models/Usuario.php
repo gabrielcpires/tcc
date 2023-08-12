@@ -9,6 +9,7 @@ class Usuario extends Model {
     private $nome;
     private $email;
     private $senha;
+    private $path;
 
     public function __get($atributo){
         return $this->$atributo;
@@ -59,7 +60,7 @@ class Usuario extends Model {
     }
 
     public function autenticar(){
-        $query = "select id, nome, email from usuarios where email = ? and senha = ?";
+        $query = "select id, nome, email, pathUsuario from usuarios where email = ? and senha = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1, $this->__get('email'));
         $stmt->bindValue(2, $this->__get('senha'));
@@ -70,6 +71,7 @@ class Usuario extends Model {
         if(!empty($usuario['id'])  && !empty($usuario['nome'])){
             $this->__set('id', $usuario['id']);
             $this->__set('nome', $usuario['nome']);
+            $this->__set('path', $usuario['pathUsuario']);
         }
 
         return $usuario;
