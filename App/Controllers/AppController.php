@@ -26,7 +26,7 @@ class AppController extends Action{
         $deslocamento = ($pagina -1) * $total_registros_pagina ;
 
         //$publicacoes = $publicacao->getAll();
-        echo '<br><br><br> ';
+        // echo '<br><br><br> ';
         $publicacoes = $publicacao->getPorPagina($total_registros_pagina, $deslocamento);
         $total_publicacoes = $publicacao->getTotalRegistros();
         $this->view->total_de_paginas = ceil($total_publicacoes['total'] / $total_registros_pagina);
@@ -105,13 +105,13 @@ class AppController extends Action{
     }
 
     public function barraNavegacao(){
-        echo '<nav class="navbar navbar-expand-lg menu">
+        echo '<nav class="navbar navbar-expand-lg menu bg-dark">
 		<div class="container">
 			<div class="navbar-nav">
 				<a class="menuItem" href="/sair">
 					Sair
 				</a>
-				<a class="menuItem" href="/telaInicial"><img src="/img/twitter_logo.png" class="menuIco" /></a>
+				<a class="menuItem" href="/telaInicial"><img src="/img/logo1.png" class="menuIco" /></a>
 			</div>
 		</div>
 	</nav>';
