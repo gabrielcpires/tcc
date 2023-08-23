@@ -436,3 +436,57 @@ h2 {
   width: 50px;
   height: 50px;
 }
+
+#cabecalho {
+  padding-left: 80px;
+  padding-right: 80px;
+  background-color: #E0E1DD;
+  color: #fff;
+  height: 60px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo a img{
+  width: 55px;
+  height: 40px;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.list{
+  margin-top: 18px;
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.list .a {
+  text-decoration: none;
+  color: #1B263B;
+  padding: 21px;
+  font-weight: bold;
+  transition: background-color 0.5s ease-in-out;
+  border-radius: 10px;
+}
+
+.a:hover{
+  background-color: #FFFFFF;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.list a img{
+  width: 40px;
+  height: 40px;
+  transition: background-color 0.5s ease-in-out;
+}

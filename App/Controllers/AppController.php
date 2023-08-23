@@ -95,6 +95,43 @@ class AppController extends Action{
         
     }
 
+    public function atualizarPerfil(){
+        $this->validaAutenticacao();
+        $usuario = Container::getModel('Usuario');
+        $usuario->__set('id', $_SESSION['id']);
+        $usuario->__set('nome', $_POST['nome']);
+        $usuario->__set('estado', $_POST['estado']);
+
+        if(isset($_FILES['avatar']) && $_FILES['avatar']['name'] != ""){
+            $arquivo = $_FILES['avatar'];
+            if($arquivo['size'] > 2097152){
+                header('Location: /perfil?arquivo=grande');
+            }
+            if($arquivo['error']){
+                header('Location: /perfil?arquivo=error');
+            }
+            $pasta = "arquivos/";
+            $nomeArquivo = $arquivo['name'];
+            $novoNomeArquivo = uniqid();
+            $extensao = strtolower(pathinfo($nomeArquivo,PATHINFO_EXTENSION));
+
+            if($extensao != 'jpg' && $extensao != 'png'){
+                header('Location: /perfil?arquivo=tipoNaoAceito');
+            }
+
+            $path = $pasta . $novoNomeArquivo . "." . $extensao;
+
+            $deu_certo = move_uploaded_file($arquivo["tmp_name"], $path );
+
+            if($deu_certo){
+                $usuario->__set('path', $path);
+            }
+        }
+        $usuario->atualizarDados();
+
+        header('Location: /perfil?att=sucess');
+    }
+
     public function validaAutenticacao(){
 
         session_start();
@@ -105,16 +142,40 @@ class AppController extends Action{
     }
 
     public function barraNavegacao(){
-        echo '<nav class="navbar navbar-expand-lg menu bg-dark">
-		<div class="container">
-			<div class="navbar-nav">
-				<a class="menuItem" href="/sair">
-					Sair
-				</a>
-				<a class="menuItem" href="/telaInicial"><img src="/img/logo1.png" class="menuIco" /></a>
-			</div>
-		</div>
-	</nav>';
+        echo '<div id="cabecalho">
+        <div class="logo-search">
+          <div class="logo">
+            <a href="/telaInicial">
+              <img src="/img/logo1.png" alt="">
+            </a>
+          </div>
+        </div>
+        <div>
+          <ul class="list">
+            <li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
+            <li class="msg"><a href="mensagens.php" class="a">Mensagens</a></li>
+            <!-- <li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
+            <li ><a href="\perfil" class="a"><img src="/img/perfil.svg" alt=""></a></li>
+          </ul>
+        </div>
+    </div>';
+    }
+
+    public function perfil(){
+        $this->validaAutenticacao();
+
+        $usuario = Container::getModel('Usuario');
+        $usuario->__set('id', $_SESSION['id']);
+        $usuario = $usuario->getUsuarioPorId();
+        $this->view->usuario = $usuario;
+
+         //recuperar estados
+         $objEstados = Container::getModel('ClassEstados');
+         $estados = $objEstados->getAll();
+         $this->view->estados = $estados;
+
+        $this->barraNavegacao();
+        $this->render('perfil');
     }
 
     

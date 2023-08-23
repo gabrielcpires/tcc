@@ -10,6 +10,7 @@ class Usuario extends Model {
     private $email;
     private $senha;
     private $path;
+    private $estado;
 
     public function __get($atributo){
         return $this->$atributo;
@@ -57,6 +58,27 @@ class Usuario extends Model {
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUsuarioPorId(){
+        $query = "select nome, email, senha, pathUsuario from usuarios where id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('id'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function atualizarDados(){
+        $query = "UPDATE usuarios SET nome=?, pathUsuario=?, id_estado=? WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1,$this->__get('nome'));
+        $stmt->bindValue(2,$this->__get('path'));
+        $stmt->bindValue(3, $this->__get('estado'));
+        $stmt->bindValue(4, $this->__get('id'));
+        $stmt->execute();
+
+        return $this;
     }
 
     public function autenticar(){
