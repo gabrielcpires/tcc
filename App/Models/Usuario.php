@@ -70,12 +70,21 @@ class Usuario extends Model {
     }
 
     public function atualizarDados(){
-        $query = "UPDATE usuarios SET nome=?, pathUsuario=?, id_estado=? WHERE id=?";
+        $query = "UPDATE usuarios SET nome=?, id_estado=? WHERE id=?";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1,$this->__get('nome'));
-        $stmt->bindValue(2,$this->__get('path'));
-        $stmt->bindValue(3, $this->__get('estado'));
-        $stmt->bindValue(4, $this->__get('id'));
+        $stmt->bindValue(2, $this->__get('estado'));
+        $stmt->bindValue(3, $this->__get('id'));
+        $stmt->execute();
+
+        return $this;
+    }
+
+    public function atualizarDados_imagem(){
+        $query = "UPDATE usuarios SET pathUsuario=?WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1,$this->__get('path'));
+        $stmt->bindValue(2, $this->__get('id'));
         $stmt->execute();
 
         return $this;

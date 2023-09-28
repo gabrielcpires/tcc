@@ -6,7 +6,7 @@ use MF\Model\Model;
 class ClassEstados extends Model{
 
     public function getAll(){
-        $query = "select * from estados";
+        $query = "select * from cidades";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
 

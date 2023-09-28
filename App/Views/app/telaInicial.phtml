@@ -1,46 +1,47 @@
-
 <div id="cabecalho">
-    <div class="logo-search">
-      <div class="logo">
-        <a href="/telaInicial">
-          <img src="/img/logo1.png" alt="">
-        </a>
-      </div>
-    </div>
-    <div>
-      <ul class="list">
-        <li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
-        <li class="msg"><a href="mensagens.php" class="a">Mensagens</a></li>
-        <!-- <li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
-        <li ><a href="\perfil" class="a"><img src="/img/perfil.svg" alt=""></a></li>
-      </ul>
-    </div>
+	<div class="logo-search">
+		<div class="logo">
+			<a href="/telaInicial">
+				<img src="/img/logo1.png" alt="">
+			</a>
+		</div>
+	</div>
+	<div>
+		<ul class="list">
+			<li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
+			<li class="msg"><a href="mensagens.php" class="a">Mensagens</a></li>
+			<!-- <li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
+			<li><a href="\perfil" class="a"><img src="/img/perfil.svg" alt=""></a></li>
+			<!-- <li ><a href="\perfil" class="a"><img src="<?php echo "/" . $_SESSION['path']; ?>" alt=""></a></li> -->
+
+		</ul>
+	</div>
 </div>
 
 
 
 
-	<div class="container mt-5 ">
-		<div class="row pt-2 ">
+<div class="container mt-5 ">
+	<div class="row pt-2 ">
 
-			<div class="col-md-3 ">
+		<div class="col-md-3 ">
 
-				<div class="perfil">
-					<div class="perfilTopo">
+			<div class="perfil">
+				<div class="perfilTopo">
 
+				</div>
+
+				<div class="perfilPainel">
+
+					<div class="row mt-2 mb-2">
+						<div class="col mb-2">
+							<span class="perfilPainelNome">
+								<?php echo $_SESSION['nome']; ?>
+							</span>
+						</div>
 					</div>
 
-					<div class="perfilPainel">
-
-						<div class="row mt-2 mb-2">
-							<div class="col mb-2">
-								<span class="perfilPainelNome">
-									<?php echo $_SESSION['nome']; ?>
-								</span>
-							</div>
-						</div>
-
-						<!-- <div class="row mb-2">
+					<!-- <div class="row mb-2">
 
 						<div class="col">
 							<span class="perfilPainelItem">Tweets</span><br />
@@ -59,30 +60,48 @@
 
 					</div> -->
 
-					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-6">
+			<div class="row mb-2">
+				<div class="col tweetBox">
+					<form action="/fazerPublicacao">
+						<div class="col mt-2 d-flex justify-content-end">
+							<button type="submit" class="btn btn-primary">Fazer Publicação</button>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+			<div class="row mb-2">
+				<div class="col tweetBox">
+					<form action="">
+						<div class="col mt-2 d-flex justify-content-end">
+							<input type="text" name="busca" placeholder="Pesquise">
+							<button type="submit" class="btn btn-primary">Pesquisar</button>
+						</div>
+
+					</form>
 				</div>
 
 			</div>
 
-			<div class="col-md-6">
-				<div class="row mb-2">
-					<div class="col tweetBox">
-						<form action="/fazerPublicacao">
-							<div class="col mt-2 d-flex justify-content-end">
-								<button type="submit" class="btn btn-primary">Fazer Publicação</button>
-							</div>
-
-						</form>
-					</div>
+			<?php if ($this->view->total_publicacoes['total'] == 0) { ?>
+				<div class="alert alert-danger" role="alert">
+					Nenhum resultado encontrado
 				</div>
-
-				<?php foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
-					<div class="row tweet">
-						<!-- <div class="col">
+			<?php };	
+				foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
+				<div class="row tweet">
+					<!-- <div class="col">
 							<p class="font-weight-bold">
 								<?php echo $publicacao['nome'] ?>
 								<small><span class="text text-muted">-
-										<?php echo $publicacao['data'] . ' - ' . $publicacao['nome_estado'] ?>
+										<?php echo $publicacao['data'] . ' - ' . $publicacao['nome_cidade'] ?>
 									</span></small>
 							</p>
 							<p><strong>
@@ -102,67 +121,70 @@
 								</div>
 							</form>
 						</div> -->
-						<div class="col">
-							
-							<div class="linha-1">
-								<div class="publicar-perfil">
-									<a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
-								</div>
-								<div class="nome">
-									<?php echo $publicacao['nome'] ?>
-									<div class="lugar">
-										<?php echo $publicacao['nome_estado'] . ' · ' . $publicacao['data'] ?>
-									</div>
+					<div class="col">
+						<div class="linha-1">
+							<div class="publicar-perfil">
+								<a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
+							</div>
+							<div class="nome">
+								<?php echo $publicacao['nome'] ?>
+								<div class="lugar">
+									<?php echo $publicacao['nome_cidade'] . ' · ' . $publicacao['data'] ?>
 								</div>
 							</div>
-							<div class="linha-2">
+						</div>
+						<div class="linha-2">
 							<p><strong>
 									<?php echo $publicacao['titulo'] ?>
 								</strong></p>
-								<?php echo $publicacao['texto'] ?>
-							</div>
-							<?php if ($publicacao['path'] != "") { ?>
-								<img src="<?php echo "/" . $publicacao['path']; ?>" alt="" class="img-fluid">
-							<?php } ?>
-							<form>
-								<!-- <div class="col d-flex justify-content-end">
+							<?php echo $publicacao['texto'] ?>
+						</div>
+						<?php if ($publicacao['path'] != "") { ?>
+							<img src="<?php echo "/" . $publicacao['path']; ?>" alt="" class="img-fluid">
+						<?php } ?>
+						<form>
+							<!-- <div class="col d-flex justify-content-end">
 									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
 								</div> -->
-							</form>
-						</div>
+						</form>
 					</div>
-				<?php } ?>
-				<div class="row mt-5">
-					<nav aria-label="...">
-						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="?pagina=1" tabindex="-1">Primeira</a>
-							</li>
-							<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
-
-								<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
-									<a class="page-link " href="?pagina=<?php echo $i ?>"><?php echo $i ?></a>
-								</li>
-
-								<li class="page-item">
-								<?php } ?>
-								<a class="page-link"
-									href="?pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
-							</li>
-						</ul>
-					</nav>
 				</div>
+			<?php } ?>
+			<div class="row mt-5">
+				<nav aria-label="...">
+					<ul class="pagination">
+						<li class="page-item">
+							<a class="page-link" href="?busca=<?php echo $this->view->busca ?>&pagina=1"
+								tabindex="-1">Primeira</a>
+						</li>
+						<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
 
+							<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
+								<a class="page-link "
+									href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $i ?>">
+									<?php echo $i ?>
+								</a>
+							</li>
+
+							<li class="page-item">
+							<?php } ?>
+							<a class="page-link"
+								href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 
+		</div>
 
-			<div class="col-md-3">
-				<!-- <div class="quemSeguir">
+
+		<div class="col-md-3">
+			<!-- <div class="quemSeguir">
 					<span class="quemSeguirTitulo">Quem seguir</span><br />
 					<hr />
 					<a href="#" class="quemSeguirTxt">Procurar por pessoas conhecidas</a>
 				</div> -->
-			</div>
-
 		</div>
+
 	</div>
+</div>

@@ -11,15 +11,17 @@ class AppController extends Action{
     public function telaInicial(){
 
         $this->validaAutenticacao();
-
         //recuperação das publicacoes
         $publicacao = Container::getModel('Publicacao');
 
     //Caso queira filtrar as publicacoes para serem somente a do usuario cadastrado (posteriormente adicionar em Perfil)
         //$publicacao->__set('id_usuario', $_SESSION['id']);
-
-    
-
+        if(isset($_GET['busca']) && $_GET['busca'] != ""){
+            $pesquisa = $_GET['busca'];
+        } else{
+            $pesquisa ="";
+        }
+        
         //variaveis de páginação 
         $total_registros_pagina = 10;
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
@@ -27,13 +29,16 @@ class AppController extends Action{
 
         //$publicacoes = $publicacao->getAll();
         // echo '<br><br><br> ';
-        $publicacoes = $publicacao->getPorPagina($total_registros_pagina, $deslocamento);
-        $total_publicacoes = $publicacao->getTotalRegistros();
+        $publicacoes = $publicacao->getPorPaginaSearch($pesquisa,$total_registros_pagina, $deslocamento);
+        $total_publicacoes = $publicacao->getTotalRegistros($pesquisa);
+
         $this->view->total_de_paginas = ceil($total_publicacoes['total'] / $total_registros_pagina);
         $this->view->pagina_ativa = $pagina;
 
         $this->view->publicacoes = $publicacoes;
+        $this->view->total_publicacoes = $total_publicacoes;
         
+        $this->view->busca = $pesquisa;
 
         $this->render('telaInicial');
        
@@ -61,7 +66,7 @@ class AppController extends Action{
         $publicacao->__set('titulo', $_POST['titulo']);
         $publicacao->__set('texto', $_POST['texto']);
         $publicacao->__set('id_usuario', $_SESSION['id']);
-        $publicacao->__set('estado', $_POST['estado']);
+        // $publicacao->__set('estado', $_POST['estado']);
 
         if(isset($_FILES['arquivo']) && $_FILES['arquivo']['name'] != ""){
             $arquivo = $_FILES['arquivo'];
@@ -125,6 +130,7 @@ class AppController extends Action{
 
             if($deu_certo){
                 $usuario->__set('path', $path);
+                $usuario->atualizarDados_imagem();
             }
         }
         $usuario->atualizarDados();

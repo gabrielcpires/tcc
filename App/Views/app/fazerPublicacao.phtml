@@ -11,14 +11,6 @@
                     <textarea class="form-control rounded form-publicacao" name="texto" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Selecione o Estado:</label>
-                    <select class="form-select" name="estado" id="estado">
-                        <?php foreach ($this->view->estados as $estado) { ?>
-                            <option value="<?php echo $estado->id ?>" name="estado"><?php echo $estado->nome_estado; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="mb-3">
                     <label class="form-label" for="arquivo">Selecione o arquivo</label>
                     <input class="form-control" type="file" name="arquivo" id="arquivo">
                 </div>

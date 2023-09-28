@@ -23,8 +23,9 @@ class AuthController extends Action{
 
             $_SESSION['id'] = $usuario->__get('id');
             $_SESSION['nome'] = $usuario->__get('nome');
+            $_SESSION['path'] = $usuario->__get('path');
             
-
+            
             header('Location: /telaInicial');
 
         } else{
