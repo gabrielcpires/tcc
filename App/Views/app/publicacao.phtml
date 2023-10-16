@@ -1,0 +1,36 @@
+<?php $publicacao = $this->view->publicacao; ?>
+
+<div class="publicacao-main">
+
+    <p class="titulo">
+        <?php echo $publicacao[0]['titulo'] ?>
+    </p>
+
+    <div class="linha-1">
+        <img src="<?php if($publicacao[0]['path'] != ""){
+							 echo "/" . $publicacao[0]['path']; 
+							} else{
+								echo "/arquivos" . '/semFotoPublicacao.jpg'; 
+							} ?>" alt="">
+        <p class="texto">
+            <?php echo $publicacao[0]['texto'] ?>
+        </p>
+    </div>
+
+    <p class="info">Informações Adicionais:</p>
+
+    <p class="usuario">Quem Publicou:</p>
+
+    <div class="linha-2">
+        <div class="publicar-perfil">
+            <a href=""> <img src="<?php echo "/" . $publicacao[0]['pathUsuario']; ?>" alt=""></a>
+        </div>
+        <div class="nome">
+            <?php echo $publicacao[0]['nome'] ?>
+            <div class="lugar">
+                <?php echo $publicacao[0]['nome_cidade'] . ' · ' . $publicacao[0]['data'] ?>
+            </div>
+        </div>
+    </div>
+
+</div>

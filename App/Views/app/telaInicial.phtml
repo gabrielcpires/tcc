@@ -1,3 +1,4 @@
+<?php $usuario = $this->view->usuario; ?>
 <div id="cabecalho">
 	<div class="logo-search">
 		<div class="logo">
@@ -21,136 +22,91 @@
 
 
 
-<div class="container mt-5 ">
-	<div class="row pt-2 ">
+<div id="principal">
+	<div class="perfil">
+		<div class="card">
+			<div class="img"> <img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt=""></div>
+			<span>Olá,
+				<?php
+				echo $usuario[0]['nome'];
+				?>
+			</span>
+			<a class="add" href="/sair">
+                Sair
+            </a>
+			<form action="/perfil">
+				<button>Perfil</button>
+			</form>
+		</div>
+	</div>
 
-		<div class="col-md-3 ">
-
-			<div class="perfil">
-				<div class="perfilTopo">
-
-				</div>
-
-				<div class="perfilPainel">
-
-					<div class="row mt-2 mb-2">
-						<div class="col mb-2">
-							<span class="perfilPainelNome">
-								<?php echo $_SESSION['nome']; ?>
-							</span>
-						</div>
+	<div class="conteudo">
+		<div class="publicar">
+			<div class="fazerPublicacao">
+				<form action="/fazerPublicacao">
+					<div class="l2">
+						<button>Fazer Uma Publicação</button>
 					</div>
-
-					<!-- <div class="row mb-2">
-
-						<div class="col">
-							<span class="perfilPainelItem">Tweets</span><br />
-							<span class="perfilPainelItemValor">0</span>
-						</div>
-
-						<div class="col">
-							<span class="perfilPainelItem">Seguindo</span><br />
-							<span class="perfilPainelItemValor">0</span>
-						</div>
-
-						<div class="col">
-							<span class="perfilPainelItem">Seguidores</span><br />
-							<span class="perfilPainelItemValor">0</span>
-						</div>
-
-					</div> -->
-
-				</div>
+				</form>
 			</div>
 
 		</div>
 
-		<div class="col-md-6">
-			<div class="row mb-2">
-				<div class="col tweetBox">
-					<form action="/fazerPublicacao">
-						<div class="col mt-2 d-flex justify-content-end">
-							<button type="submit" class="btn btn-primary">Fazer Publicação</button>
-						</div>
+		<hr>
 
-					</form>
-				</div>
-
-			</div>
-			<div class="row mb-2">
-				<div class="col tweetBox">
-					<form action="">
-						<div class="col mt-2 d-flex justify-content-end">
-							<input type="text" name="busca" placeholder="Pesquise">
-							<button type="submit" class="btn btn-primary">Pesquisar</button>
-						</div>
-
-					</form>
-				</div>
-
+		<form action="" class="search-container">
+			<div class="col mt-2 d-flex justify-content-end">
+				<input name="busca" type="text" id="search-bar" placeholder="Busca">
+				<a href="#"><img class="search-icon"
+						src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
 			</div>
 
+		</form>
+		<div class="publicacoes">
 			<?php if ($this->view->total_publicacoes['total'] == 0) { ?>
 				<div class="alert alert-danger" role="alert">
 					Nenhum resultado encontrado
 				</div>
-			<?php };	
-				foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
-				<div class="row tweet">
-					<!-- <div class="col">
-							<p class="font-weight-bold">
-								<?php echo $publicacao['nome'] ?>
-								<small><span class="text text-muted">-
-										<?php echo $publicacao['data'] . ' - ' . $publicacao['nome_cidade'] ?>
-									</span></small>
-							</p>
-							<p><strong>
-									<?php echo $publicacao['titulo'] ?>
-								</strong></p>
-							<p>
-								<?php echo $publicacao['texto'] ?>
-							</p>
-							<?php if ($publicacao['path'] != "") { ?>
-								<img src="<?php echo "/" . $publicacao['path']; ?>" alt="" class="img-fluid">
-							<?php } ?>
-							<br />
-							<br>
-							<form>
-								<div class="col d-flex justify-content-end">
-									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
-								</div>
-							</form>
-						</div> -->
-					<div class="col">
-						<div class="linha-1">
-							<div class="publicar-perfil">
-								<a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
-							</div>
-							<div class="nome">
-								<?php echo $publicacao['nome'] ?>
-								<div class="lugar">
-									<?php echo $publicacao['nome_cidade'] . ' · ' . $publicacao['data'] ?>
-								</div>
+
+			<?php }
+			;
+
+			foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
+				 <div class="publicacao" onclick="window.location.href='/publicacao?id=<?php echo $publicacao['id']?>'">
+					<div class="linha-1">
+						<div class="publicar-perfil">
+							<a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
+						</div>
+						<div class="nome">
+							<?php echo $publicacao['nome'] ?>
+							<div class="lugar">
+								<?php echo $publicacao['nome_cidade'] . ' · ' . $publicacao['data'] ?>
 							</div>
 						</div>
-						<div class="linha-2">
-							<p><strong>
-									<?php echo $publicacao['titulo'] ?>
-								</strong></p>
-							<?php echo $publicacao['texto'] ?>
-						</div>
-						<?php if ($publicacao['path'] != "") { ?>
-							<img src="<?php echo "/" . $publicacao['path']; ?>" alt="" class="img-fluid">
-						<?php } ?>
-						<form>
-							<!-- <div class="col d-flex justify-content-end">
+					</div>
+					<div class="linha-2">
+						<p><strong>
+								<?php echo $publicacao['titulo'] ?>
+							</strong></p>
+					</div>
+						<img class="imagem-publicacao" src="<?php
+							if($publicacao['path'] != ""){
+							 echo "/" . $publicacao['path']; 
+							} else{
+								echo "/arquivos" . '/semFotoPublicacao.jpg'; 
+							}
+							 
+							 ?>" alt="" class="img-fluid">
+					<form>
+						<!-- <div class="col d-flex justify-content-end">
 									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
 								</div> -->
-						</form>
-					</div>
+					</form>
 				</div>
 			<?php } ?>
-			<div class="row mt-5">
+		</div>
+
+		<div class="paginacao">
 				<nav aria-label="...">
 					<ul class="pagination">
 						<li class="page-item">
@@ -175,16 +131,14 @@
 				</nav>
 			</div>
 
-		</div>
 
+	</div>
 
-		<div class="col-md-3">
-			<!-- <div class="quemSeguir">
-					<span class="quemSeguirTitulo">Quem seguir</span><br />
-					<hr />
-					<a href="#" class="quemSeguirTxt">Procurar por pessoas conhecidas</a>
-				</div> -->
-		</div>
-
+	<div class="direita">
+		<!-- <div class="quemSeguir">
+			<span class="quemSeguirTitulo">Quem seguir</span><br />
+			<hr />
+			<a href="#" class="quemSeguirTxt">Procurar por pessoas conhecidas</a>
+		</div> -->
 	</div>
 </div>

@@ -14,6 +14,12 @@ class AppController extends Action{
         //recuperação das publicacoes
         $publicacao = Container::getModel('Publicacao');
 
+        //recuperação dos usuarios
+        $usuario = Container::getModel('Usuario');
+        $usuario->__set('id', $_SESSION['id']);
+        $usuario = $usuario->getUsuarioPorId();
+        $this->view->usuario = $usuario;
+
     //Caso queira filtrar as publicacoes para serem somente a do usuario cadastrado (posteriormente adicionar em Perfil)
         //$publicacao->__set('id_usuario', $_SESSION['id']);
         if(isset($_GET['busca']) && $_GET['busca'] != ""){
@@ -81,7 +87,7 @@ class AppController extends Action{
             $novoNomeArquivo = uniqid();
             $extensao = strtolower(pathinfo($nomeArquivo,PATHINFO_EXTENSION));
 
-            if($extensao != 'jpg' && $extensao != 'png'){
+            if($extensao != 'jpg' && $extensao != 'png' && $extensao != 'jpeg'){
                 header('Location: /telaInicial?arquivo=tipoNaoAceito');
             }
 
@@ -136,6 +142,23 @@ class AppController extends Action{
         $usuario->atualizarDados();
 
         header('Location: /perfil?att=sucess');
+    }
+
+    public function publicacao(){
+        $this->validaAutenticacao();
+
+        //recuperação das publicacoes
+        $publicacao = Container::getModel('Publicacao');
+        $id = $_GET['id'];
+
+        $publicacao->__set('id', $id);
+        $publicacao = $publicacao->getPublicacaoPorId();
+        $this->view->publicacao = $publicacao;
+
+        $this->barraNavegacao();
+        
+        $this->render('publicacao');
+        
     }
 
     public function validaAutenticacao(){

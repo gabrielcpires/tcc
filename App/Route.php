@@ -67,6 +67,12 @@ class Route extends Bootstrap{
             'controller' => 'AppController',
             'action' => 'atualizarPerfil'
         );
+
+        $routes['publicacao'] = array(
+            'route' => '/publicacao',
+            'controller' => 'AppController',
+            'action' => 'publicacao'
+        );
         
 
         $this->setRoutes($routes);

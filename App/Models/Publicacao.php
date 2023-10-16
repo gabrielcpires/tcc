@@ -181,6 +181,22 @@ class Publicacao extends Model {
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function getPublicacaoPorId(){
+        $query = "
+    select 
+        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+    from 
+        publicacoes as p
+        left join usuarios as u on (p.id_usuario = u.id)
+        left join cidades as e on(u.id_estado = e.id)
+    where p.id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('id'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

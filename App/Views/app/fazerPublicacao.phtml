@@ -1,23 +1,22 @@
-<div class="container">
-    <div class="row d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="col-lg-8 col-md-10 col-sm-12 tweetBox" style="max-width: 600px;">
-            <form class="tweet-form" enctype="multipart/form-data" method="post" action="/publicar">
-                <div class="mb-3">
-                    <label class="form-label" for="titulo">Título:</label>
-                    <input class="form-control rounded-pill form-publicacao" type="text" name="titulo" id="titulo">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Texto:</label>
-                    <textarea class="form-control rounded form-publicacao" name="texto" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="arquivo">Selecione o arquivo</label>
-                    <input class="form-control" type="file" name="arquivo" id="arquivo">
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Publicar</button>
-                </div>
-            </form>
-        </div>
+<div class="container-form">
+    <div class="form-wrapper">
+        <form class="custom-form" enctype="multipart/form-data" method="post" action="/publicar">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input class="form-control" type="text" name="titulo" id="titulo">
+            </div>
+            <div class="form-group">
+                <label for="texto">Texto:</label>
+                <textarea class="form-control" name="texto" id="texto" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="arquivo">Selecione o arquivo:</label>
+                <input class="form-control" type="file" name="arquivo" id="arquivo">
+            </div>
+            <div class="l2">
+                <button type="submit" >Publicar</button>
+			</div>
+
+        </form>
     </div>
 </div>
