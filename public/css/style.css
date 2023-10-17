@@ -777,3 +777,15 @@ input#search-bar {
   padding: 13px;
   border-radius: 40px;
 }
+
+.publicacao-main .contato {
+  margin-top: 15px;
+  margin-left: 13px;
+}
+
+.publicacao-main .dados-contato {
+  margin-top: 15px;
+  margin-left: 13px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}

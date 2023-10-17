@@ -45,7 +45,7 @@ class AppController extends Action{
         $this->view->total_publicacoes = $total_publicacoes;
         
         $this->view->busca = $pesquisa;
-
+        
         $this->render('telaInicial');
        
 
@@ -72,6 +72,7 @@ class AppController extends Action{
         $publicacao->__set('titulo', $_POST['titulo']);
         $publicacao->__set('texto', $_POST['texto']);
         $publicacao->__set('id_usuario', $_SESSION['id']);
+        $publicacao->__set('contato', $_POST['contato']);
         // $publicacao->__set('estado', $_POST['estado']);
 
         if(isset($_FILES['arquivo']) && $_FILES['arquivo']['name'] != ""){
@@ -100,8 +101,8 @@ class AppController extends Action{
             }
         }
 
-        $publicacao->salvar();
-
+        $publicacao->salvar();  
+        
         header('Location: /telaInicial');
         
     }
@@ -181,9 +182,9 @@ class AppController extends Action{
         </div>
         <div>
           <ul class="list">
-            <li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
+            <!--<li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
             <li class="msg"><a href="mensagens.php" class="a">Mensagens</a></li>
-            <!-- <li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
+             <li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
             <li ><a href="\perfil" class="a"><img src="/img/perfil.svg" alt=""></a></li>
           </ul>
         </div>

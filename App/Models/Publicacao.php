@@ -12,6 +12,8 @@ class Publicacao extends Model {
     private $data;
     private $estado;
 
+    private $contato;
+
     public function __get($atributo){
         return $this->$atributo;
     }
@@ -22,12 +24,13 @@ class Publicacao extends Model {
 
     //salvar
     public function salvar(){
-        $query = "insert into publicacoes(id_usuario, titulo, texto,path)values(?,?,?,?)";
+        $query = "insert into publicacoes(id_usuario, titulo, texto,path,contato)values(?,?,?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1, $this->__get('id_usuario'));
         $stmt->bindValue(2, $this->__get('titulo'));
         $stmt->bindValue(3, $this->__get('texto'));
         $stmt->bindValue(4, $this->__get('path'));
+        $stmt->bindValue(5, $this->__get('contato'));
         $stmt->execute();
 
         return $this;
@@ -185,7 +188,7 @@ class Publicacao extends Model {
     public function getPublicacaoPorId(){
         $query = "
     select 
-        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, p.contato, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
     from 
         publicacoes as p
         left join usuarios as u on (p.id_usuario = u.id)
