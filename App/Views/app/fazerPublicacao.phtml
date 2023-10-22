@@ -1,26 +1,34 @@
 <div class="container-form">
     <div class="form-wrapper">
-        <form class="custom-form" enctype="multipart/form-data" method="post" action="/publicar">
-            <div class="form-group">
-                <label for="titulo">Título:</label>
-                <input class="form-control" type="text" name="titulo" id="titulo">
-            </div>
-            <div class="form-group">
-                <label for="texto">Texto:</label>
-                <textarea class="form-control" name="texto" id="texto" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="contato">Dados para Contato:</label>
-                <input class="form-control" type="text" name="contato" id="contato">
-            </div>
-            <div class="form-group">
-                <label for="arquivo">Selecione o arquivo:</label>
-                <input class="form-control" type="file" name="arquivo" id="arquivo">
-            </div>
-            <div class="l2">
-                <button type="submit" >Publicar</button>
-			</div>
-
-        </form>
+        <div class="modal__header">
+            <span class="modal__title">Criar uma Publicacão</span><a href="/telaInicial" class="button button--icon">
+                <svg width="24" viewBox="0 0 24 24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="none" d="M0 0h24v24H0V0z"></path>
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z">
+                    </path>
+                </svg>
+            </a>
+        </div>
+        <div class="modal__body">
+            <form class="custom-form" enctype="multipart/form-data" method="post" action="/publicar">
+                <div class="input">
+                    <label class="input__label" for="titulo">Título:</label>
+                    <input class="input__field" type="text" name="titulo" id="titulo">
+                    <p class="input__description">Descrição do titulo</p>
+                </div>
+                <div class="input">
+                    <label class="input__label" for="texto">Texto:</label>
+                    <textarea class="input__field input__field--textarea" name="texto" id="texto"></textarea>
+                    <p class="input__description">Descrição do texto</p>
+                </div>
+                <div class="input">
+                    <label for="arquivo">Selecione o arquivo:</label>
+                    <input class="form-control" type="file" name="arquivo" id="arquivo">
+                </div>
+        </div>
+        <div class="l2">
+            <button type="submit">Publicar</button>
+        </div>
     </div>
 </div>

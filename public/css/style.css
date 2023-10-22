@@ -179,7 +179,7 @@ body {
 #cabecalho {
   padding-left: 80px;
   padding-right: 80px;
-  background-color: #E0E1DD;
+  background: #fff;
   color: #fff;
   height: 60px;
   top: 0;
@@ -318,7 +318,7 @@ body {
 .publicar {
   width: 100%;
   height: 50px;
-  background-color: #E0E1DD;
+  background-color: #fff;
   border-radius: 15px;
 }
 
@@ -440,15 +440,18 @@ input#search-bar {
 }
 
 .publicacao {
-  width: calc(33.33% - 20px);
+  width: calc(23.33%);
   cursor: pointer;
   margin-top: 2px;
-  padding-bottom: 7px;
-  background-color: #E0E1DD;
-  border-radius: 15px;
+  /* padding-bottom: 7px; */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+    0 32px 64px -48px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
 }
+
 
 
 .linha-1 {
@@ -460,9 +463,11 @@ input#search-bar {
 }
 
 .linha-2 {
-  margin-left: 15px;
   margin-bottom: 15px;
   margin-top: 15px;
+  text-align: center; /* Centraliza o texto */
+  font-size: 16px; /* Define o tamanho da fonte */
+  color: #333; /* Define a cor do texto (use a cor desejada) */
 }
 
 .nome {
@@ -495,18 +500,16 @@ input#search-bar {
 }
 
 .imagem-publicacao {
-  max-width: 90%;
+  max-width: 100%;
   /* A imagem não ultrapassará a largura do contêiner pai */
   height: 90%;
   /* A altura se ajustará automaticamente para manter a proporção original da imagem */
   display: block;
-  margin: auto;
   border-radius: 8px;
   /* Adiciona cantos arredondados */
-  border: 1px solid #ccc;
-  /* Adiciona uma borda fina ao redor da imagem */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* Adiciona uma sombra suave */
+  margin-bottom: 10px;
 }
 
 .paginacao {
@@ -684,7 +687,7 @@ input#search-bar {
 .publicacao-main {
   display: flex;
   flex-direction: column;
-  width: 85%;
+  width: 100%;
   margin: auto;
   margin-top: 10px;
   background-color: white;
@@ -1118,9 +1121,10 @@ input#search-bar {
   padding: 18px 30px;
 }
 
-.chat-area header .back-icon {
+.back-icon{
   color: #333;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .chat-area header img {
@@ -1315,4 +1319,206 @@ input#search-bar {
   .chat-area form button {
     width: 45px;
   }
+
+  .publicacao hr{
+    width: 98%;
+    margin-top: 0;
+  }
+}
+
+.delete-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.delete-svgIcon {
+  width: 15px;
+  transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 90px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.delete-button::before {
+  display: none;
+  content: "Excluir";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+.form-delete{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-icon {
+  position: relative;
+  float: right;
+  width: 75px;
+  height: 75px;
+  top: -62px;
+  right: -45px;
+}
+
+.back-publicacao{
+  margin: 20px;
+}
+
+.button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.container-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 93%;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: 0 15px 30px 0 rgba(0, 125, 171, 0.15);
+  border-radius: 10px;
+}
+
+.modal__header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal__body {
+  padding: 1rem 1rem;
+}
+
+.modal__footer {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.modal__title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease;
+}
+
+.button--icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: transparent;
+  border-radius: 0.25rem;
+}
+
+.button--icon:focus, .button--icon:hover {
+  background-color: #ededed;
+}
+
+.button--primary {
+  background-color: #007dab;
+  color: #FFF;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.button--primary:hover {
+  background-color: #006489;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+}
+
+.input + .input {
+  margin-top: 1.75rem;
+}
+
+.input__label {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.input__field {
+  display: block;
+  margin-top: 0.5rem;
+  border: 1px solid #DDD;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.75rem;
+  transition: 0.15s ease;
+}
+
+.input__field:focus {
+  outline: none;
+  border-color: #007dab;
+  box-shadow: 0 0 0 1px #007dab, 0 0 0 4px rgba(0, 125, 171, 0.25);
+}
+
+.input__field--textarea {
+  min-height: 100px;
+  max-width: 100%;
+}
+
+.input__description {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: #8d8d8d;
 }

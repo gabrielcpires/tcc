@@ -32,8 +32,8 @@
 				?>
 			</span>
 			<a class="add" href="/sair">
-                Sair
-            </a>
+				Sair
+			</a>
 			<form action="/perfil">
 				<button>Perfil</button>
 			</form>
@@ -57,8 +57,7 @@
 		<form action="" class="search-container">
 			<div class="col mt-2 d-flex justify-content-end">
 				<input name="busca" type="text" id="search-bar" placeholder="Busca">
-				<a href="#"><img class="search-icon"
-						src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+				<img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png">
 			</div>
 
 		</form>
@@ -72,8 +71,8 @@
 			;
 
 			foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
-				 <div class="publicacao" onclick="window.location.href='/publicacao?id=<?php echo $publicacao['id']?>'">
-					<div class="linha-1">
+				<div class="publicacao" onclick="window.location.href='/publicacao?id=<?php echo $publicacao['id'] ?>'">
+					<!-- <div class="linha-1">
 						<div class="publicar-perfil">
 							<a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
 						</div>
@@ -83,20 +82,20 @@
 								<?php echo $publicacao['nome_cidade'] . ' · ' . $publicacao['data'] ?>
 							</div>
 						</div>
-					</div>
+					</div> -->
+
+					<img class="imagem-publicacao" src="<?php
+					if ($publicacao['path'] != "") {
+						echo "/" . $publicacao['path'];
+					} else {
+						echo "/arquivos" . '/semFotoPublicacao.jpg';
+					}
+					?>" alt="" class="img-fluid">
 					<div class="linha-2">
-						<p><strong>
-								<?php echo $publicacao['titulo'] ?>
-							</strong></p>
+						<p>
+							<?php echo $publicacao['titulo'] ?>
+						</p>
 					</div>
-						<img class="imagem-publicacao" src="<?php
-							if($publicacao['path'] != ""){
-							 echo "/" . $publicacao['path']; 
-							} else{
-								echo "/arquivos" . '/semFotoPublicacao.jpg'; 
-							}
-							 
-							 ?>" alt="" class="img-fluid">
 					<form>
 						<!-- <div class="col d-flex justify-content-end">
 									<button type="submit" class="btn btn-danger"><small>Remover</small></button>
@@ -107,29 +106,28 @@
 		</div>
 
 		<div class="paginacao">
-				<nav aria-label="...">
-					<ul class="pagination">
+			<nav aria-label="...">
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" href="?busca=<?php echo $this->view->busca ?>&pagina=1"
+							tabindex="-1">Primeira</a>
+					</li>
+					<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
+
+						<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
+							<a class="page-link " href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $i ?>">
+								<?php echo $i ?>
+							</a>
+						</li>
+
 						<li class="page-item">
-							<a class="page-link" href="?busca=<?php echo $this->view->busca ?>&pagina=1"
-								tabindex="-1">Primeira</a>
-						</li>
-						<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
-
-							<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
-								<a class="page-link "
-									href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $i ?>">
-									<?php echo $i ?>
-								</a>
-							</li>
-
-							<li class="page-item">
-							<?php } ?>
-							<a class="page-link"
-								href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
+						<?php } ?>
+						<a class="page-link"
+							href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 
 
 	</div>

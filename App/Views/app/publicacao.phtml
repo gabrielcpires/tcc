@@ -1,17 +1,17 @@
 <?php $publicacao = $this->view->publicacao; ?>
 
 <div class="publicacao-main">
-
+    <a href="telaInicial" class="back-icon back-publicacao"><i class="fas fa-arrow-left"></i></a>
     <p class="titulo">
         <?php echo $publicacao[0]['titulo'] ?>
     </p>
 
     <div class="linha-1">
-        <img src="<?php if($publicacao[0]['path'] != ""){
-							 echo "/" . $publicacao[0]['path']; 
-							} else{
-								echo "/arquivos" . '/semFotoPublicacao.jpg'; 
-							} ?>" alt="">
+        <img src="<?php if ($publicacao[0]['path'] != "") {
+            echo "/" . $publicacao[0]['path'];
+        } else {
+            echo "/arquivos" . '/semFotoPublicacao.jpg';
+        } ?>" alt="">
         <p class="texto">
             <?php echo $publicacao[0]['texto'] ?>
         </p>
@@ -32,11 +32,5 @@
             </div>
         </div>
     </div>
-
-    <p class="contato">Dados para Contato: </p>
-
-    <p class="dados-contato">
-        <?php echo $publicacao[0]['contato'] ?>
-    </p>
-
 </div>
+

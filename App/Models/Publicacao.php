@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Models;
+
 use MF\Model\Model;
 
-class Publicacao extends Model {
+class Publicacao extends Model
+{
 
     private $id;
     private $titulo;
@@ -12,31 +14,33 @@ class Publicacao extends Model {
     private $data;
     private $estado;
 
-    private $contato;
 
-    public function __get($atributo){
+    public function __get($atributo)
+    {
         return $this->$atributo;
     }
 
-    public function __set( $atributo, $valor){
+    public function __set($atributo, $valor)
+    {
         $this->$atributo = $valor;
     }
 
     //salvar
-    public function salvar(){
-        $query = "insert into publicacoes(id_usuario, titulo, texto,path,contato)values(?,?,?,?,?)";
+    public function salvar()
+    {
+        $query = "insert into publicacoes(id_usuario, titulo, texto,path)values(?,?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1, $this->__get('id_usuario'));
         $stmt->bindValue(2, $this->__get('titulo'));
         $stmt->bindValue(3, $this->__get('texto'));
         $stmt->bindValue(4, $this->__get('path'));
-        $stmt->bindValue(5, $this->__get('contato'));
         $stmt->execute();
 
         return $this;
     }
 
-    public function deletar(){
+    public function deletar()
+    {
         $query = "delete from 
                     publicacoes
                 where
@@ -47,7 +51,8 @@ class Publicacao extends Model {
     }
 
     //recuperar
-    public function getAll(){
+    public function getAll()
+    {
 
         $query = "
             select 
@@ -74,7 +79,8 @@ class Publicacao extends Model {
     }
 
     //recuperar com paginação
-    public function getPorPagina($limit, $offset){
+    public function getPorPagina($limit, $offset)
+    {
 
         $query = "
             select 
@@ -104,11 +110,12 @@ class Publicacao extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getPorPaginaSearch($pesquisa,$limit, $offset){
+    public function getPorPaginaSearch($pesquisa, $limit, $offset)
+    {
 
-        if($pesquisa != ""){
+        if ($pesquisa != "") {
 
-        $query = "
+            $query = "
             select 
                 p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
             from 
@@ -124,7 +131,7 @@ class Publicacao extends Model {
             offset
                 $offset    
         ";
-        } else{
+        } else {
             $query = "
             select 
                 p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
@@ -155,11 +162,12 @@ class Publicacao extends Model {
     }
 
 
-    
-    //recuperar total de publicacoes com filtro
-    public function getTotalRegistros($pesquisa){
 
-        if($pesquisa != ""){
+    //recuperar total de publicacoes com filtro
+    public function getTotalRegistros($pesquisa)
+    {
+
+        if ($pesquisa != "") {
             $query = "
             select 
                count(*) as total
@@ -171,7 +179,7 @@ class Publicacao extends Model {
                 titulo like '%$pesquisa%'   
         ";
 
-        } else{
+        } else {
             $query = "
             select 
                count(*) as total
@@ -182,7 +190,7 @@ class Publicacao extends Model {
         ";
         }
 
-        
+
 
         //Caso queira filtrar as publicacoes para serem somente a do usuario cadastrado (posteriormente adicionar em Perfil)
         // $query = "
@@ -197,10 +205,11 @@ class Publicacao extends Model {
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getPublicacaoPorId(){
+    public function getPublicacaoPorId()
+    {
         $query = "
     select 
-        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, p.contato, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
     from 
         publicacoes as p
         left join usuarios as u on (p.id_usuario = u.id)
@@ -213,10 +222,11 @@ class Publicacao extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getPublicacaoPorUsuario($id_usuario,$limit, $offset){
+    public function getPublicacaoPorUsuario($id_usuario, $limit, $offset)
+    {
         $query = "
     select 
-        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, p.contato, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
     from 
         publicacoes as p
         left join usuarios as u on (p.id_usuario = u.id)
@@ -231,7 +241,7 @@ class Publicacao extends Model {
         $offset    ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(1,$id_usuario);
+        $stmt->bindValue(1, $id_usuario);
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

@@ -2,6 +2,7 @@
 <div id="fundoDesfocado">
     <div id="janelaEdicaoPerfil" style="display:none;">
         <div class="form-perfil">
+            <a id="fecharJanela" class="back-icon"><i class="fas fa-arrow-left"></i></a>
             <form class="custom-form" enctype="multipart/form-data" method="post" action="/atualizarPerfil">
                 <div class="form-group personal-image">
                     <label for="avatar" class="label-avatar">
@@ -76,9 +77,7 @@
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
             </form>
-            <div class="l2-sair">
-                <button id="fecharJanela" type="submit" class="btn btn-primary">Fechar</button>
-            </div>
+
 
         </div>
     </div>
@@ -115,7 +114,7 @@
 
             foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
                 <div class="publicacao" onclick="window.location.href='/publicacao?id=<?php echo $publicacao['id'] ?>'">
-                    <div class="linha-1">
+                    <!-- <div class="linha-1">
                         <div class="publicar-perfil">
                             <a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
                         </div>
@@ -125,12 +124,7 @@
                                 <?php echo $publicacao['nome_cidade'] . ' · ' . $publicacao['data'] ?>
                             </div>
                         </div>
-                    </div>
-                    <div class="linha-2">
-                        <p><strong>
-                                <?php echo $publicacao['titulo'] ?>
-                            </strong></p>
-                    </div>
+                    </div> -->
                     <img class="imagem-publicacao" src="<?php
                     if ($publicacao['path'] != "") {
                         echo "/" . $publicacao['path'];
@@ -139,13 +133,21 @@
                     }
 
                     ?>" alt="" class="img-fluid">
+                    <div class="linha-2">
+                        <p><strong>
+                                <?php echo $publicacao['titulo'] ?>
+                            </strong></p>
+                    </div>
 
-                    <form method="post" action="/excluirPublicacao?id=<?php echo $publicacao['id'] ?>">
-                        <div class="l2-sair">
-                            <button type="submit" class="btn btn-primary">Excluir</button>
-                        </div>
+                    <form class="form-delete" method="post" action="/excluirPublicacao?id=<?php echo $publicacao['id'] ?>">
+                        <button class="delete-button">
+                            <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                <path
+                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                                </path>
+                            </svg>
+                        </button>
                     </form>
-
                 </div>
             <?php } ?>
         </div>
