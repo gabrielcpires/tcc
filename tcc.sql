@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16/10/2023 às 02:43
+-- Tempo de geração: 18/10/2023 às 01:42
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -949,6 +949,7 @@ CREATE TABLE `publicacoes` (
   `titulo` varchar(80) NOT NULL,
   `texto` varchar(200) NOT NULL,
   `path` varchar(100) DEFAULT 'arquivos/semFotoPublicacao.jpg',
+  `contato` varchar(100) NOT NULL,
   `pathUsuario` varchar(100) NOT NULL,
   `data` datetime DEFAULT current_timestamp(),
   `id_estado` int(5) NOT NULL
@@ -958,9 +959,9 @@ CREATE TABLE `publicacoes` (
 -- Despejando dados para a tabela `publicacoes`
 --
 
-INSERT INTO `publicacoes` (`id`, `id_usuario`, `titulo`, `texto`, `path`, `pathUsuario`, `data`, `id_estado`) VALUES
-(27, 10, 'ola', 'teste', NULL, '', '2023-10-05 20:30:30', 0),
-(32, 11, 'Teste', 'Olá, isso é um teste!', 'arquivos/652c864c1d3bd.jpeg', '', '2023-10-15 21:39:40', 0);
+INSERT INTO `publicacoes` (`id`, `id_usuario`, `titulo`, `texto`, `path`, `contato`, `pathUsuario`, `data`, `id_estado`) VALUES
+(33, 11, 'Teste', 'Doando cesta básica...', 'arquivos/652d968584de4.jpeg', 'WhatsApp: 31 994163270', '', '2023-10-16 17:01:09', 0),
+(34, 11, 'teste', 'teste', 'arquivos/652daadebbf79.png', 'WhatsApp: 31 994163270', '', '2023-10-16 18:27:58', 0);
 
 -- --------------------------------------------------------
 
@@ -983,7 +984,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `pathUsuario`, `id_estado`) VALUES
 (10, 'Gabriel', 'gabriel@teste.com', '81dc9bdb52d04dc20036dbd8313ed055', 'arquivos/651f4ad2362df.png', 1565),
-(11, 'CPwel', 'gabriel@teste', '202cb962ac59075b964b07152d234b70', 'arquivos/652763f33e429.png', 1565);
+(11, 'CPwel', 'gabriel@teste', '202cb962ac59075b964b07152d234b70', 'arquivos/652763f33e429.png', 1770);
 
 --
 -- Índices para tabelas despejadas
@@ -1027,7 +1028,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de tabela `publicacoes`
 --
 ALTER TABLE `publicacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
