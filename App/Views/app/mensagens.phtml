@@ -1,0 +1,37 @@
+<?php $usuario = $this->view->usuario;
+$usuarioPesquisado = $this->view->usuarioPesquisado; ?>
+
+<div class="wrapper">
+  <section class="users">
+    <header>
+      <div class="content">
+        <img src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>" alt="">
+        <div class="details">
+          <span><?php echo $usuario[0]['nome']; ?></span>
+        </div>
+      </div>
+    </header>
+    <form action=""  id="searchForm">
+        
+      <div class="search">
+        <span class="text">Pesquise por um usuário</span>
+        <input type="text" name="usuario" id="search-bar" placeholder="Digite o nome do Usuário">
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+    <?php if($usuarioPesquisado != null && $usuarioPesquisado[0]['id'] != $_SESSION['id']){ ?>
+    <div class="users-list">
+    <a href="/chat?user_id=<?php echo $usuarioPesquisado[0]['id_unico']; ?>">
+        <div class="content">
+          <img src="<?php echo "/" . $usuarioPesquisado[0]['pathUsuario']; ?>" alt="">
+          <div class="details">
+            <span><?php echo $usuarioPesquisado[0]['nome'];?></span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <?php } ?>
+  </section>
+</div>
+
+<script src="/javascript/users.js"></script>

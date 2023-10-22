@@ -24,6 +24,7 @@ class AuthController extends Action{
             $_SESSION['id'] = $usuario->__get('id');
             $_SESSION['nome'] = $usuario->__get('nome');
             $_SESSION['path'] = $usuario->__get('path');
+            $_SESSION['id_unico'] = $usuario->__get('id_unico');
             
             
             header('Location: /telaInicial');

@@ -14,6 +14,8 @@ class Usuario extends Model
     private $path;
     private $estado;
 
+    private $id_unico;
+
     public function __get($atributo)
     {
         return $this->$atributo;
@@ -27,11 +29,13 @@ class Usuario extends Model
     //salvar
     public function salvar()
     {
-        $query = "insert into usuarios(nome, email, senha)values(?, ?,?)";
+        $query = "insert into usuarios(nome, email, senha, id_unico)values(?, ?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1, $this->__get('nome'));
         $stmt->bindValue(2, $this->__get('email'));
         $stmt->bindValue(3, $this->__get('senha')); //md5() -> hash 32 caracteres
+        $random_id = rand(time(), 10000000);
+        $stmt->bindValue(4, $random_id); 
         $stmt->execute();
 
         return $this;
@@ -85,13 +89,60 @@ class Usuario extends Model
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function atualizarDados()
+    public function getUsuarioPorIdUnico()
     {
-        $query = "UPDATE usuarios SET nome=?, id_estado=? WHERE id=?";
+        $query = "
+        select
+            id, id_unico,nome, pathUsuario
+        from 
+            usuarios 
+        where
+            id_unico = ?
+        ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('id_unico'));
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUsuarioPorNome()
+    {
+        $query = "
+        SELECT
+            id, nome, pathUsuario,id_unico
+        FROM 
+            usuarios 
+        WHERE
+            nome LIKE ?
+    ";
+    
+    $searchTerm = '%' . $this->__get('nome') . '%'; // Adapte isso para o seu contexto
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $searchTerm, \PDO::PARAM_STR);
+    $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function atualizarDados_nome()
+    {
+        $query = "UPDATE usuarios SET nome=? WHERE id=?";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1, $this->__get('nome'));
-        $stmt->bindValue(2, $this->__get('estado'));
-        $stmt->bindValue(3, $this->__get('id'));
+        $stmt->bindValue(2, $this->__get('id'));
+        $stmt->execute();
+
+        return $this;
+    }
+
+    public function atualizarDados_estado()
+    {
+        $query = "UPDATE usuarios SET id_estado=? WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('estado'));
+        $stmt->bindValue(2, $this->__get('id'));
         $stmt->execute();
 
         return $this;
@@ -108,9 +159,20 @@ class Usuario extends Model
         return $this;
     }
 
+    public function atualizarDados_senha()
+    {
+        $query = "UPDATE usuarios SET senha=?WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('senha'));
+        $stmt->bindValue(2, $this->__get('id'));
+        $stmt->execute();
+
+        return $this;
+    }
+
     public function autenticar()
     {
-        $query = "select id, nome, email, pathUsuario from usuarios where email = ? and senha = ?";
+        $query = "select id, nome, email, pathUsuario,id_unico from usuarios where email = ? and senha = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(1, $this->__get('email'));
         $stmt->bindValue(2, $this->__get('senha'));
@@ -122,6 +184,7 @@ class Usuario extends Model
             $this->__set('id', $usuario['id']);
             $this->__set('nome', $usuario['nome']);
             $this->__set('path', $usuario['pathUsuario']);
+            $this->__set('id_unico', $usuario['id_unico']);
         }
 
         return $usuario;

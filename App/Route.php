@@ -73,6 +73,41 @@ class Route extends Bootstrap{
             'controller' => 'AppController',
             'action' => 'publicacao'
         );
+
+        $routes['excluirPublicacao'] = array(
+            'route' => '/excluirPublicacao',
+            'controller' => 'AppController',
+            'action' => 'excluirPublicacao'
+        );
+
+        $routes['mensagens'] = array(
+            'route' => '/mensagens',
+            'controller' => 'AppController',
+            'action' => 'mensagens'
+        );
+
+        $routes['chat'] = array(
+            'route' => '/chat',
+            'controller' => 'AppController',
+            'action' => 'chat'
+        );
+
+        $routes['insert_chat'] = array(
+            'route' => '/insert_chat',
+            'controller' => 'AppController',
+            'action' => 'insert_chat'
+        );
+
+        $routes['get_chat'] = array(
+            'route' => '/get_chat',
+            'controller' => 'AppController',
+            'action' => 'get_chat'
+        );
+
+       
+
+
+        
         
 
         $this->setRoutes($routes);

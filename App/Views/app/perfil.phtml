@@ -1,53 +1,212 @@
 <?php $usuario = $this->view->usuario; ?>
-<div class="container-form">
-    <div class="form-perfil">
-        <form class="custom-form" enctype="multipart/form-data" method="post" action="/atualizarPerfil">
-            <div class="form-group personal-image">
-                <label for="avatar" class="label-avatar">
-                    <input type="file" name="avatar" id="avatar" value="<?php $usuario[0]['pathUsuario']; ?>" />
-                    <figure class="personal-figure">
-                        <img src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>" class="personal-avatar" alt="avatar">
-                    </figure>
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" id="nome" value="<?php echo $usuario[0]['nome']; ?>"
-                    required>
-            </div>
+<div id="fundoDesfocado">
+    <div id="janelaEdicaoPerfil" style="display:none;">
+        <div class="form-perfil">
+            <form class="custom-form" enctype="multipart/form-data" method="post" action="/atualizarPerfil">
+                <div class="form-group personal-image">
+                    <label for="avatar" class="label-avatar">
+                        <input type="file" name="avatar" id="avatar" onchange="previewImage(event)" />
+                        <figure class="personal-figure">
+                            <img id="avatar-preview" class="personal-avatar" alt="avatar"
+                                src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>">
+                        </figure>
+                    </label>
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" name="email" id="email"
-                    value="<?php echo $usuario[0]['email']; ?>" disabled>
-            </div>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <div class="form-editar-perfil">
+                        <input type="text" class="form-control" name="nome" id="nome"
+                            value="<?php echo $usuario[0]['nome']; ?>" disabled>
+                        <span class="span-cadeado">
+                            <button class="btn btn-secondary" type="button" onclick="enableField('nome')">
+                                <img src="img/cadeado.png" alt="Cadeado">
+                            </button>
+                        </span>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="senha">Senha:</label>
-                <input type="password" class="form-control" name="senha" id="senha"
-                    value="<?php echo $usuario[0]['senha']; ?>" disabled>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <div class="form-editar-perfil">
+                        <input type="email" class="form-control" name="email" id="email"
+                            value="<?php echo $usuario[0]['email']; ?>" disabled>
+                        <span class="span-cadeado">
+                            <button class="btn btn-secondary" type="button" onclick="enableField('email')">
+                                <img src="img/cadeado.png" alt="Cadeado">
+                            </button>
+                        </span>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="estado">Selecione a Cidade:</label>
-                <select class="form-select" name="estado" id="estado">
-                    <option value = "<?php echo $usuario[0]['id_estado']; ?>"selected><?php echo $usuario[0]['nome_cidade']; ?></option>
-                    <?php foreach ($this->view->estados as $estado) { ?>
-                        <option value="<?php echo $estado->id ?>">
-                            <?php echo $estado->nome_cidade; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <div class="form-editar-perfil">
+                        <input type="password" class="form-control" name="senha" id="senha" disabled>
+                        <span class="span-cadeado">
+                            <button class="btn btn-secondary" type="button" onclick="enableField('senha')">
+                                <img src="img/cadeado.png" alt="Cadeado">
+                            </button>
+                        </span>
+                    </div>
+                </div>
 
-            <div class="l2">
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-            </div>
-        </form>
-        <form action="/sair">
+                <div class="form-group">
+                    <label for="estado">Selecione a Cidade:</label>
+                    <div class="form-editar-perfil">
+                        <select class="form-select" name="estado" id="estado" disabled>
+                            <option value="<?php echo $usuario[0]['id_estado']; ?>" selected>
+                                <?php echo $usuario[0]['nome_cidade']; ?>
+                            </option>
+                            <?php foreach ($this->view->estados as $estado) { ?>
+                                <option value="<?php echo $estado->id ?>">
+                                    <?php echo $estado->nome_cidade; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                        <span class="span-cadeado">
+                            <button class="btn btn-secondary" type="button" onclick="enableField('estado')">
+                                <img src="img/cadeado.png" alt="Cadeado">
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="l2">
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                </div>
+            </form>
             <div class="l2-sair">
-                <button type="submit" class="btn btn-primary">Desconectar</button>
+                <button id="fecharJanela" type="submit" class="btn btn-primary">Fechar</button>
             </div>
-        </form>
+
+        </div>
     </div>
 </div>
+
+<div id="principal">
+    <div class="perfil">
+        <div class="card">
+            <div class="img">
+                <img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt="">
+            </div>
+            <span>
+                <?php
+                echo $usuario[0]['nome'];
+                ?>
+            </span>
+            <a class="add" href="/sair">
+                Sair
+            </a>
+            <button id="editarPerfilButton">Editar Perfil</button>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <p class="minhas-publicações">Publicações</p>
+        <div class="publicacoes">
+            <?php if ($this->view->total_publicacoes['total'] == 0) { ?>
+                <div class="alert alert-danger" role="alert">
+                    Nenhum resultado encontrado
+                </div>
+
+            <?php }
+            ;
+
+            foreach ($this->view->publicacoes as $id_publicacao => $publicacao) { ?>
+                <div class="publicacao" onclick="window.location.href='/publicacao?id=<?php echo $publicacao['id'] ?>'">
+                    <div class="linha-1">
+                        <div class="publicar-perfil">
+                            <a href=""> <img src="<?php echo "/" . $publicacao['pathUsuario']; ?>" alt=""></a>
+                        </div>
+                        <div class="nome">
+                            <?php echo $publicacao['nome'] ?>
+                            <div class="lugar">
+                                <?php echo $publicacao['nome_cidade'] . ' · ' . $publicacao['data'] ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="linha-2">
+                        <p><strong>
+                                <?php echo $publicacao['titulo'] ?>
+                            </strong></p>
+                    </div>
+                    <img class="imagem-publicacao" src="<?php
+                    if ($publicacao['path'] != "") {
+                        echo "/" . $publicacao['path'];
+                    } else {
+                        echo "/arquivos" . '/semFotoPublicacao.jpg';
+                    }
+
+                    ?>" alt="" class="img-fluid">
+
+                    <form method="post" action="/excluirPublicacao?id=<?php echo $publicacao['id'] ?>">
+                        <div class="l2-sair">
+                            <button type="submit" class="btn btn-primary">Excluir</button>
+                        </div>
+                    </form>
+
+                </div>
+            <?php } ?>
+        </div>
+
+        <div class="paginacao">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="?busca=<?php echo $this->view->busca ?>&pagina=1"
+                            tabindex="-1">Primeira</a>
+                    </li>
+                    <?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
+
+                        <li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
+                            <a class="page-link " href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $i ?>">
+                                <?php echo $i ?>
+                            </a>
+                        </li>
+
+                        <li class="page-item">
+                        <?php } ?>
+                        <a class="page-link"
+                            href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('avatar-preview');
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    function enableField(fieldId) {
+        var field = document.getElementById(fieldId);
+        field.disabled = !field.disabled;
+        var submitButton = document.querySelector('#janelaEdicaoPerfil button[type="submit"]');
+        submitButton.disabled = !submitButton.disabled;
+    }
+
+    document.getElementById('editarPerfilButton').addEventListener('click', function () {
+        document.getElementById('fundoDesfocado').style.display = 'flex';
+    });
+
+    document.getElementById('fecharJanela').addEventListener('click', function () {
+        document.getElementById('fundoDesfocado').style.display = 'none';
+    });
+
+    document.getElementById('editarPerfilButton').addEventListener('click', function () {
+        document.getElementById('janelaEdicaoPerfil').style.display = 'block';
+    });
+</script>

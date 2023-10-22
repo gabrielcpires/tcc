@@ -36,6 +36,16 @@ class Publicacao extends Model {
         return $this;
     }
 
+    public function deletar(){
+        $query = "delete from 
+                    publicacoes
+                where
+                    id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('id'));
+        $stmt->execute();
+    }
+
     //recuperar
     public function getAll(){
 
@@ -144,7 +154,9 @@ class Publicacao extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    //recuperar total de publicacoes
+
+    
+    //recuperar total de publicacoes com filtro
     public function getTotalRegistros($pesquisa){
 
         if($pesquisa != ""){
@@ -199,6 +211,31 @@ class Publicacao extends Model {
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getPublicacaoPorUsuario($id_usuario,$limit, $offset){
+        $query = "
+    select 
+        p.id, p.id_usuario,p.titulo, u.nome, p.texto,p.path, p.contato, u.id_estado,e.nome_cidade, u.pathUsuario, DATE_FORMAT(p.data, '%d/%m/%Y %H:%i') as data
+    from 
+        publicacoes as p
+        left join usuarios as u on (p.id_usuario = u.id)
+        left join cidades as e on(u.id_estado = e.id)
+    where 
+        p.id_usuario = ?
+    order by
+        p.data desc 
+    limit
+        $limit 
+    offset
+        $offset    ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1,$id_usuario);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
     }
 }
 

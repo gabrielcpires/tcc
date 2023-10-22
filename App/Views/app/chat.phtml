@@ -1,0 +1,24 @@
+<?php $usuario = $this->view->usuario; ?>
+  <div class="wrapper">
+    <section class="chat-area">
+      <header>
+        <a href="mensagens" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+        <img src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>" alt="">
+        <div class="details">
+          <span><?php echo $usuario[0]['nome']; ?></span>
+        </div>
+      </header>
+      <div class="chat-box">
+        
+      </div>
+      <form class="typing-area" autocomplete="off" >
+        <input type="text" class="outgoing_id" name="outgoing_id" value="<?php echo $_SESSION['id_unico']; ?>" hidden>
+        <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $usuario[0]['id_unico']; ?>" hidden>
+        <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
+        <button><i class="fab fa-telegram-plane"></i></button>
+      </form>
+    </section>
+  </div>
+
+  <script src="javascript/chat.js"></script>
+
