@@ -9,23 +9,45 @@
 	</div>
 	<div>
 		<ul class="list">
-			<li class="msg"><a href="/mensagens" class="a">Mensagens</a></li>
-			<!-- <li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
-			<li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
-			<li><a href="/perfil" class="a"><img src="/img/perfil.svg" alt=""></a></li>
-			<!-- <li ><a href="\perfil" class="a"><img src="<?php echo "/" . $_SESSION['path']; ?>" alt=""></a></li> -->
-
+			<li><img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt="" onclick="toggleMenu()"></li>
 		</ul>
+	</div>
+	<div class="sub-menu-wrap" id="subMenu">
+		<div class="sub-menu">
+			<div class="user-info">
+				<img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" class="imagem-perfil-baixo" alt="">
+				<h2>
+					<?php echo $usuario[0]['nome']; ?>
+				</h2>
+			</div>
+			<hr>
+
+			<a href="/perfil" class="sub-menu-link">
+				<img src="img/profile.png" alt="">
+				<p>Perfil</p>
+				<span>></span>
+			</a>
+
+			<a href="/mensagens" class="sub-menu-link">
+				<img src="img/mensagens.png" alt="" >
+				<p>Mensagens</p>
+				<span>></span>
+			</a>
+
+			<a href="/sair" class="sub-menu-link">
+				<img src="img/logout.png" alt="">
+				<p>Sair</p>
+				<span>></span>
+			</a>
+
+		</div>
 	</div>
 </div>
 
-
-
-
 <div id="principal">
-	<div class="perfil">
+	<!-- <div class="perfil">
 		<div class="card">
-			<div class="img"> <img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt=""></div>
+			 <div class="img"> <img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt=""></div>
 			<span>Olá,
 				<?php
 				echo $usuario[0]['nome'];
@@ -36,9 +58,9 @@
 			</a>
 			<form action="/perfil">
 				<button>Perfil</button>
-			</form>
+			</form> 
 		</div>
-	</div>
+	</div> -->
 
 	<div class="conteudo">
 		<div class="publicar">
@@ -132,11 +154,19 @@
 
 	</div>
 
-	<div class="direita">
-		<!-- <div class="quemSeguir">
+	<!-- <div class="direita">
+ <div class="quemSeguir">
 			<span class="quemSeguirTitulo">Quem seguir</span><br />
 			<hr />
 			<a href="#" class="quemSeguirTxt">Procurar por pessoas conhecidas</a>
-		</div> -->
-	</div>
+		</div> 
+	</div> -->
 </div>
+
+<script>
+	let subMenu =document.getElementById("subMenu");
+
+	function toggleMenu() {
+		subMenu.classList.toggle("open-menu");
+	}
+</script>

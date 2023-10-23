@@ -57,11 +57,15 @@ class AppController extends Action
 
         $this->validaAutenticacao();
 
+        $usuario = Container::getModel('Usuario');
+        $usuario->__set('id', $_SESSION['id']);
+        $usuario = $usuario->getUsuarioPorId();
+        $this->view->usuario = $usuario;
+        
         //recuperar estados
         $objEstados = Container::getModel('ClassEstados');
         $estados = $objEstados->getAll();
         $this->view->estados = $estados;
-        $this->barraNavegacao();
 
         $this->render('fazerPublicacao');
 
@@ -188,7 +192,6 @@ class AppController extends Action
         $publicacao = $publicacao->getPublicacaoPorId();
         $this->view->publicacao = $publicacao;
 
-        $this->barraNavegacao();
 
         $this->render('publicacao');
 
@@ -204,26 +207,6 @@ class AppController extends Action
         }
     }
 
-    public function barraNavegacao()
-    {
-        echo '<div id="cabecalho">
-        <div class="logo-search">
-          <div class="logo">
-            <a href="/telaInicial">
-              <img src="/img/logo1.png" alt="">
-            </a>
-          </div>
-        </div>
-        <div>
-          <ul class="list">
-            <!--<li class="feed"><a href="/telaInicial" class="a">Feed</a></li>
-            <li class="msg"><a href="mensagens.php" class="a">Mensagens</a></li>
-             <li class="notificacoes"><a href="notificacoes.php" class="a">Perfil</a></li> -->
-            <li ><a href="\perfil" class="a"><img src="/img/perfil.svg" alt=""></a></li>
-          </ul>
-        </div>
-    </div>';
-    }
 
     public function perfil()
     {
@@ -257,7 +240,6 @@ class AppController extends Action
         $this->view->total_publicacoes = $total_publicacoes;
 
 
-        $this->barraNavegacao();
         $this->render('perfil');
     }
 
@@ -282,7 +264,6 @@ class AppController extends Action
         $usuarioPesquisado->__set('nome', $pesquisa);
         $this->view->usuarioPesquisado = $usuarioPesquisado->getUsuarioPorNome();
 
-        $this->barraNavegacao();
         $this->render('mensagens');
     }
 
@@ -302,7 +283,6 @@ class AppController extends Action
         $usuario = $usuario->getUsuarioPorIdUnico();
         $this->view->usuario = $usuario;
 
-        $this->barraNavegacao();
         $this->render('chat');
     }
 

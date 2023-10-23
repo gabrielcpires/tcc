@@ -1,5 +1,49 @@
 <?php $usuario = $this->view->usuario;
 $usuarioPesquisado = $this->view->usuarioPesquisado; ?>
+<div id="cabecalho">
+	<div class="logo-search">
+		<div class="logo">
+			<a href="/telaInicial">
+				<img src="/img/logo1.png" alt="">
+			</a>
+		</div>
+	</div>
+	<div>
+		<ul class="list">
+			<li><img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt="" onclick="toggleMenu()"></li>
+		</ul>
+	</div>
+	<div class="sub-menu-wrap" id="subMenu">
+		<div class="sub-menu">
+			<div class="user-info">
+				<img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" class="imagem-perfil-baixo" alt="">
+				<h2>
+					<?php echo $usuario[0]['nome']; ?>
+				</h2>
+			</div>
+			<hr>
+
+			<a href="/perfil" class="sub-menu-link">
+				<img src="img/profile.png" alt="">
+				<p>Perfil</p>
+				<span>></span>
+			</a>
+
+			<a href="/mensagens" class="sub-menu-link">
+				<img src="img/mensagens.png" alt="" >
+				<p>Mensagens</p>
+				<span>></span>
+			</a>
+
+			<a href="/sair" class="sub-menu-link">
+				<img src="img/logout.png" alt="">
+				<p>Sair</p>
+				<span>></span>
+			</a>
+
+		</div>
+	</div>
+</div>
 
 <div class="wrapper">
   <section class="users">
@@ -16,7 +60,7 @@ $usuarioPesquisado = $this->view->usuarioPesquisado; ?>
     <form action="" id="searchForm">
       <div class="search">
         <span class="text">Pesquise por um usuário</span>
-        <input type="text" name="usuario" id="search-bar" placeholder="Digite o nome do Usuário">
+        <input type="text" name="usuario" id="search-bar" class="search-bar" placeholder="Digite o nome do Usuário">
         <button type="submit"><i class="fas fa-search"></i></button>
       </div>
     </form>
