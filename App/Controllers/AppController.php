@@ -139,6 +139,12 @@ class AppController extends Action
             $usuario->__set('nome', $_POST['nome']);
             $usuario->atualizarDados_nome();
         }
+
+        if (isset($_POST['email']) && $_POST['email'] != "") {
+            $usuario->__set('email', $_POST['email']);
+            $usuario->atualizarDados_email();
+        }
+
         if (isset($_POST['estado']) && $_POST['estado'] != "") {
             $usuario->__set('estado', $_POST['estado']);
             $usuario->atualizarDados_estado();
@@ -176,7 +182,6 @@ class AppController extends Action
                 $usuario->atualizarDados_imagem();
             }
         }
-
         header('Location: /perfil?att=sucess');
     }
 

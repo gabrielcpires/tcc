@@ -137,6 +137,17 @@ class Usuario extends Model
         return $this;
     }
 
+    public function atualizarDados_email()
+    {
+        $query = "UPDATE usuarios SET email=? WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('email'));
+        $stmt->bindValue(2, $this->__get('id'));
+        $stmt->execute();
+
+        return $this;
+    }
+
     public function atualizarDados_estado()
     {
         $query = "UPDATE usuarios SET id_estado=? WHERE id=?";

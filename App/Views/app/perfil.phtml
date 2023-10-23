@@ -43,7 +43,6 @@
 		</div>
 	</div>
 </div>
-
 <div id="fundoDesfocado">
     <div id="janelaEdicaoPerfil" style="display:none;">
         <div class="form-perfil">
@@ -63,12 +62,8 @@
                     <label for="nome">Nome:</label>
                     <div class="form-editar-perfil">
                         <input type="text" class="form-control" name="nome" id="nome"
-                            value="<?php echo $usuario[0]['nome']; ?>" disabled>
-                        <span class="span-cadeado">
-                            <button class="btn btn-secondary" type="button" onclick="enableField('nome')">
-                                <img src="img/cadeado.png" alt="Cadeado">
-                            </button>
-                        </span>
+                            value="<?php echo $usuario[0]['nome']; ?>" >
+                        
                     </div>
                 </div>
 
@@ -76,31 +71,23 @@
                     <label for="email">Email:</label>
                     <div class="form-editar-perfil">
                         <input type="email" class="form-control" name="email" id="email"
-                            value="<?php echo $usuario[0]['email']; ?>" disabled>
-                        <span class="span-cadeado">
-                            <button class="btn btn-secondary" type="button" onclick="enableField('email')">
-                                <img src="img/cadeado.png" alt="Cadeado">
-                            </button>
-                        </span>
+                            value="<?php echo $usuario[0]['email']; ?>" >
+                        
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="senha">Senha:</label>
                     <div class="form-editar-perfil">
-                        <input type="password" class="form-control" name="senha" id="senha" disabled>
-                        <span class="span-cadeado">
-                            <button class="btn btn-secondary" type="button" onclick="enableField('senha')">
-                                <img src="img/cadeado.png" alt="Cadeado">
-                            </button>
-                        </span>
+                        <input type="password" class="form-control" name="senha" id="senha" >
+                       
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="estado">Selecione a Cidade:</label>
                     <div class="form-editar-perfil">
-                        <select class="form-select" name="estado" id="estado" disabled>
+                        <select class="form-select" name="estado" id="estado" >
                             <option value="<?php echo $usuario[0]['id_estado']; ?>" selected>
                                 <?php echo $usuario[0]['nome_cidade']; ?>
                             </option>
@@ -110,11 +97,7 @@
                                 </option>
                             <?php } ?>
                         </select>
-                        <span class="span-cadeado">
-                            <button class="btn btn-secondary" type="button" onclick="enableField('estado')">
-                                <img src="img/cadeado.png" alt="Cadeado">
-                            </button>
-                        </span>
+                       
                     </div>
                 </div>
 
@@ -238,12 +221,12 @@
             reader.readAsDataURL(file);
         }
     }
-    function enableField(fieldId) {
-        var field = document.getElementById(fieldId);
-        field.disabled = !field.disabled;
-        var submitButton = document.querySelector('#janelaEdicaoPerfil button[type="submit"]');
-        submitButton.disabled = !submitButton.disabled;
-    }
+    // function enableField(fieldId) {
+    //     var field = document.getElementById(fieldId);
+    //     field.disabled = !field.disabled;
+    //     var submitButton = document.querySelector('#janelaEdicaoPerfil button[type="submit"]');
+    //     submitButton.disabled = !submitButton.disabled;
+    // }
 
     document.getElementById('editarPerfilButton').addEventListener('click', function () {
         document.getElementById('fundoDesfocado').style.display = 'flex';

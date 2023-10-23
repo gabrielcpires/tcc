@@ -12,7 +12,6 @@ class Publicacao extends Model
     private $texto;
     private $path;
     private $data;
-    private $estado;
 
 
     public function __get($atributo)
@@ -174,7 +173,7 @@ class Publicacao extends Model
             from 
                 publicacoes as p
                 left join usuarios as u on (p.id_usuario = u.id)
-                left join cidades as e on(p.id_estado = e.id)
+                left join cidades as e on(u.id_estado = e.id)
             where
                 titulo like '%$pesquisa%'   
         ";
@@ -186,7 +185,7 @@ class Publicacao extends Model
             from 
                 publicacoes as p
                 left join usuarios as u on (p.id_usuario = u.id)
-                left join cidades as e on(p.id_estado = e.id)
+                left join cidades as e on(u.id_estado = e.id)
         ";
         }
 
