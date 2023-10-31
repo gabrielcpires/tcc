@@ -30,7 +30,7 @@
 			</a>
 
 			<a href="/mensagens" class="sub-menu-link">
-				<img src="img/mensagens.png" alt="" >
+				<img src="img/mensagens.png" alt="">
 				<p>Mensagens</p>
 				<span>></span>
 			</a>
@@ -46,36 +46,47 @@
 </div>
 
 <div class="publicacao-main">
-    <a href="telaInicial" class="back-icon back-publicacao"><i class="fas fa-arrow-left"></i></a>
-    <p class="titulo">
-        <?php echo $publicacao[0]['titulo'] ?>
-    </p>
+	<a href="telaInicial" class="back-icon back-publicacao"><i class="fas fa-arrow-left"></i></a>
+	<p class="titulo">
+		<?php echo $publicacao[0]['titulo'] ?>
+	</p>
 
-    <div class="linha-1">
-        <img src="<?php if ($publicacao[0]['path'] != "") {
-            echo "/" . $publicacao[0]['path'];
-        } else {
-            echo "/arquivos" . '/semFotoPublicacao.jpg';
-        } ?>" alt="">
-        <p class="texto">
-            <?php echo $publicacao[0]['texto'] ?>
-        </p>
-    </div>
+	<div class="linha-1">
+		<img src="<?php if ($publicacao[0]['path'] != "") {
+			echo "/" . $publicacao[0]['path'];
+		} else {
+			echo "/arquivos" . '/semFotoPublicacao.jpg';
+		} ?>" alt="">
+		<p class="texto">
+			<?php echo $publicacao[0]['texto'] ?>
+		</p>
+	</div>
 
-    <p class="info">Informações Adicionais:</p>
+	<p class="info">Informações Adicionais:</p>
 
-    <p class="usuario">Quem Publicou:<?php print_r( $publicacao[0]); ?></p>
+	<p class="usuario">Quem Publicou:</p>
 
-    <div class="linha-2">
-        <div class="publicar-perfil">
-            <a href=""> <img src="<?php echo "/" . $publicacao[0]['pathUsuario']; ?>" alt=""></a>
-        </div>
-        <div class="nome">
-            <?php echo $publicacao[0]['nome'] ?>
-            <div class="lugar">
-                <?php echo $publicacao[0]['nome_cidade'] . ' · ' . $publicacao[0]['data'] ?>
-            </div>
-        </div>
-    </div>
+	<div class="linha-2">
+		<div class="linha-2-linha-1">
+			<div class="publicar-perfil">
+				<a href="/perfil?id=<?php echo $publicacao[0]['id_usuario']; ?>">
+					<img src="<?php echo "/" . $publicacao[0]['pathUsuario']; ?>" alt="">
+				</a>
+			</div>
+			<div class="nome">
+				<?php echo $publicacao[0]['nome'] ?>
+				<div class="lugar">
+					<?php echo $publicacao[0]['nome_cidade'] . ' · ' . $publicacao[0]['data'] ?>
+				</div>
+			</div>
+		</div>
+		<div class="linha-2-linha-2">
+				<a href="/chat?user_id=<?php echo $publicacao[0]['id_unico'] ?>">
+					<div class="l2">
+						<button>Enviar Uma Mensagem</button>
+					</div>
+				</a>
+				</form>
+		</div>
+	</div>
 </div>
-

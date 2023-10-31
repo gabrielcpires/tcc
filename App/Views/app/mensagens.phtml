@@ -1,5 +1,6 @@
 <?php $usuario = $this->view->usuario;
-$usuarioPesquisado = $this->view->usuarioPesquisado; ?>
+$usuarioPesquisado = $this->view->usuarioPesquisado;
+$ultimasMensagens = $this->view->ultimasMensagens ?>
 <div id="cabecalho">
 	<div class="logo-search">
 		<div class="logo">
@@ -30,7 +31,7 @@ $usuarioPesquisado = $this->view->usuarioPesquisado; ?>
 			</a>
 
 			<a href="/mensagens" class="sub-menu-link">
-				<img src="img/mensagens.png" alt="" >
+				<img src="img/mensagens.png" alt="">
 				<p>Mensagens</p>
 				<span>></span>
 			</a>
@@ -46,39 +47,60 @@ $usuarioPesquisado = $this->view->usuarioPesquisado; ?>
 </div>
 
 <div class="wrapper">
-  <section class="users">
-    <header>
-      <div class="content">
-        <img src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>" alt="">
-        <div class="details">
-          <span>
-            <?php echo $usuario[0]['nome']; ?>
-          </span>
-        </div>
-      </div>
-    </header>
-    <form action="" id="searchForm">
-      <div class="search">
-        <span class="text">Pesquise por um usuário</span>
-        <input type="text" name="usuario" id="search-bar" class="search-bar" placeholder="Digite o nome do Usuário">
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </div>
-    </form>
-    <?php if ($usuarioPesquisado != null && $usuarioPesquisado[0]['id'] != $_SESSION['id']) { ?>
-      <div class="users-list">
-        <a href="/chat?user_id=<?php echo $usuarioPesquisado[0]['id_unico']; ?>">
-          <div class="content">
-            <img src="<?php echo "/" . $usuarioPesquisado[0]['pathUsuario']; ?>" alt="">
-            <div class="details">
-              <span>
-                <?php echo $usuarioPesquisado[0]['nome']; ?>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    <?php } ?>
-  </section>
+	<section class="users">
+		<header>
+			<div class="content">
+				<img src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>" alt="">
+				<div class="details">
+					<span>
+						<?php echo $usuario[0]['nome']; ?>
+					</span>
+				</div>
+			</div>
+		</header>
+		<form action="" id="searchForm">
+			<div class="search">
+				<span class="text">Pesquise por um usuário</span>
+				<input type="text" name="usuario" id="search-bar" class="search-bar"
+					placeholder="Digite o nome do Usuário">
+				<button type="submit"><i class="fas fa-search"></i></button>
+			</div>
+		</form>
+		<?php if ($usuarioPesquisado != null && $usuarioPesquisado[0]['id'] != $_SESSION['id']) { ?>
+			<div class="users-list">
+				<a href="/chat?user_id=<?php echo $usuarioPesquisado[0]['id_unico']; ?>">
+					<div class="content">
+						<img src="<?php echo "/" . $usuarioPesquisado[0]['pathUsuario']; ?>" alt="">
+						<div class="details">
+							<span>
+								<?php echo $usuarioPesquisado[0]['nome']; ?>
+							</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		<?php } else{ ?>
+		<div class="users-list">
+			<?php foreach ($ultimasMensagens as $mensagem){ ?>
+				<a href="/chat?user_id=<?php echo $mensagem['id_unico']; ?>">
+					<div class="content">
+						<img src="<?php echo "/" . $mensagem['pathUsuario']; ?>" alt="">
+						<div class="details">
+							<span>
+								<?php echo $mensagem['nome']; ?>
+							</span>
+							<p>
+								<?php echo $mensagem['msg']; ?>
+							</p>
+						</div>
+					</div>
+				</a>
+			<?php } }?>
+
+		</div>
+
+
+	</section>
 </div>
 
 <script src="/javascript/users.js"></script>

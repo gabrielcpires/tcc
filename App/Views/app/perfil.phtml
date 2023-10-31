@@ -123,9 +123,11 @@
                 ?>
             </span>
             <a class="add" href="/sair">
-                Sair
+                <!-- Sair -->
             </a>
+            <?php if($_GET['id'] == $_SESSION['id']){?>
             <button id="editarPerfilButton">Editar Perfil</button>
+            <?php } ?>
         </div>
     </div>
 
@@ -166,7 +168,7 @@
                                 <?php echo $publicacao['titulo'] ?>
                             </strong></p>
                     </div>
-
+                    <?php if($_GET['id'] == $_SESSION['id']){?>
                     <form class="form-delete" method="post" action="/excluirPublicacao?id=<?php echo $publicacao['id'] ?>">
                         <button class="delete-button">
                             <svg class="delete-svgIcon" viewBox="0 0 448 512">
@@ -176,6 +178,7 @@
                             </svg>
                         </button>
                     </form>
+                    <?php } ?>
                 </div>
             <?php } ?>
         </div>

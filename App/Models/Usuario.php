@@ -75,7 +75,7 @@ class Usuario extends Model
     {
         $query = "
         select
-            u.nome, u.email, u.senha, u.pathUsuario, u.id_estado,e.nome_cidade 
+            u.nome,u.id, u.email, u.senha, u.pathUsuario, u.id_estado,e.nome_cidade,u.id_unico 
         from 
             usuarios as u 
             left join cidades as e on(u.id_estado = e.id)

@@ -197,7 +197,6 @@ class AppController extends Action
         $publicacao = $publicacao->getPublicacaoPorId();
         $this->view->publicacao = $publicacao;
 
-
         $this->render('publicacao');
 
     }
@@ -218,7 +217,7 @@ class AppController extends Action
         $this->validaAutenticacao();
 
         $usuario = Container::getModel('Usuario');
-        $usuario->__set('id', $_SESSION['id']);
+        $usuario->__set('id', $_GET['id']);
         $usuario = $usuario->getUsuarioPorId();
         $this->view->usuario = $usuario;
 
@@ -257,6 +256,9 @@ class AppController extends Action
         $usuario = $usuario->getUsuarioPorId();
         $this->view->usuario = $usuario;
 
+        $mensagem = Container::getModel('Mensagem');
+        $mensagem->__set('outgoing_msg_id', $usuario[0]['id_unico']); 
+
         if (isset($_GET['usuario']) && $_GET['usuario'] != "") {
             $pesquisa = $_GET['usuario'];
         } else {
@@ -268,6 +270,7 @@ class AppController extends Action
 
         $usuarioPesquisado->__set('nome', $pesquisa);
         $this->view->usuarioPesquisado = $usuarioPesquisado->getUsuarioPorNome();
+        $this->view->ultimasMensagens =  $mensagem->pegarUltimo();;
 
         $this->render('mensagens');
     }
@@ -347,7 +350,7 @@ class AppController extends Action
                 }  
             }
         }else{
-            $output .= '<div class="text">No messages are available. Once you send message they will appear here.</div>';
+            $output .= '<div class="text">Sem mensagens disponíveis. Assim que você enviar uma mensagem, ela aparecerá aqui.</div>';
         }echo $output;
 
         
