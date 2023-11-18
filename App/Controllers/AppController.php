@@ -34,7 +34,7 @@ class AppController extends Action
         }
 
         //variaveis de páginação 
-        $total_registros_pagina = 10;
+        $total_registros_pagina = 12;
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
         $deslocamento = ($pagina - 1) * $total_registros_pagina;
 
@@ -160,8 +160,11 @@ class AppController extends Action
 
 
         if (isset($_POST['senha']) && $_POST['senha'] != "") {
+            if(strlen($_POST['senha']) < 8){    
+            } else{
             $usuario->__set('senha', md5($_POST['senha']));
             $usuario->atualizarDados_senha();
+            }
         }
 
         if (isset($_FILES['avatar']) && $_FILES['avatar']['name'] != "") {
@@ -241,7 +244,7 @@ class AppController extends Action
 
         $publicacao = Container::getModel('Publicacao');
         //variaveis de páginação 
-        $total_registros_pagina = 10;
+        $total_registros_pagina = 12;
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
         $deslocamento = ($pagina - 1) * $total_registros_pagina;
 
@@ -270,7 +273,7 @@ class AppController extends Action
         $this->view->usuario = $usuario;
 
         $mensagem = Container::getModel('Mensagem');
-        $mensagem->__set('outgoing_msg_id', $usuario[0]['id_unico']); 
+        $mensagem->__set('incoming_msg_id', $usuario[0]['id_unico']); 
 
         if (isset($_GET['usuario']) && $_GET['usuario'] != "") {
             $pesquisa = $_GET['usuario'];

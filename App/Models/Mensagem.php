@@ -55,14 +55,14 @@ class Mensagem extends Model
     public function pegarUltimo(){
         $query = "SELECT mensagem.*, usuarios.*
           FROM mensagem
-          LEFT JOIN usuarios ON usuarios.id_unico = mensagem.incoming_msg_id
-          WHERE (outgoing_msg_id = :outgoing_msg_id)
+          LEFT JOIN usuarios ON usuarios.id_unico = mensagem.outgoing_msg_id
+          WHERE (incoming_msg_id = :incoming_msg_id)
           GROUP BY incoming_msg_id
           ORDER BY mensagem.msg_id DESC
           LIMIT 5;";
             $stmt = $this->db->prepare($query);
     
-            $stmt->bindValue(':outgoing_msg_id', $this->__get('outgoing_msg_id'));
+            $stmt->bindValue(':incoming_msg_id', $this->__get('incoming_msg_id'));
 
            
             $stmt->execute();

@@ -1,4 +1,6 @@
-<?php if(isset($this->view->usuario)){$usuario = $this->view->usuario; }?>
+<?php if (isset($this->view->usuario)) {
+	$usuario = $this->view->usuario;
+} ?>
 <div id="cabecalho">
 	<div class="logo-search">
 		<div class="logo">
@@ -29,7 +31,7 @@
 			</a>
 
 			<a href="/mensagens" class="sub-menu-link">
-				<img src="img/mensagens.png" alt="" >
+				<img src="img/mensagens.png" alt="">
 				<p>Mensagens</p>
 				<span>></span>
 			</a>
@@ -126,30 +128,29 @@
 				</div>
 			<?php } ?>
 		</div>
-
-		<div class="paginacao">
-			<nav aria-label="...">
-				<ul class="pagination">
-					<li class="page-item">
-						<a class="page-link" href="?busca=<?php echo $this->view->busca ?>&pagina=1"
-							tabindex="-1">Primeira</a>
-					</li>
-					<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
-
-						<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
-							<a class="page-link " href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $i ?>">
-								<?php echo $i ?>
-							</a>
-						</li>
-
+			<div class="paginacao">
+				<nav aria-label="...">
+					<ul class="pagination">
 						<li class="page-item">
-						<?php } ?>
-						<a class="page-link"
-							href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
+							<a class="page-link" href="?busca=<?php echo $this->view->busca ?>&pagina=1"
+								tabindex="-1">Primeira</a>
+						</li>
+						<?php for ($i = 1; $i <= $this->view->total_de_paginas; $i++) { ?>
+
+							<li class="page-item <?php echo $this->view->pagina_ativa == $i ? 'active' : '' ?>">
+								<a class="page-link " href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $i ?>">
+									<?php echo $i ?>
+								</a>
+							</li>
+
+							<li class="page-item">
+							<?php } ?>
+							<a class="page-link"
+								href="?busca=<?php echo $this->view->busca ?>&pagina=<?php echo $this->view->total_de_paginas ?>">Ultima</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
 
 
 	</div>
@@ -162,9 +163,14 @@
 		</div> 
 	</div> -->
 </div>
+<footer class="rodape">
+	<img src="/img/logo1.png" alt="Logo Compartilhando Esperança" class="logo">
+	<p>&copy; 2023 Compartilhando Esperança. Todos os direitos reservados.</p>
+</footer>
+
 
 <script>
-	let subMenu =document.getElementById("subMenu");
+	let subMenu = document.getElementById("subMenu");
 
 	function toggleMenu() {
 		subMenu.classList.toggle("open-menu");

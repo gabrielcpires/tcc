@@ -32,11 +32,10 @@ class IndexController extends Action
         //sucesso
         $usuario = Container::getModel('Usuario');
 
-        if(strlen($_POST['senha']) == 8){    
-            header('Location: /telaInicial');
+        if(strlen($_POST['senha']) < 8){    
             $this->view->senhaPequena = true;
             $this->render('cadastrarse');
-        }
+        } else{
 
         $usuario->__set('nome',$_POST['nome']);
         $usuario->__set('email',$_POST['email']);
@@ -61,6 +60,7 @@ class IndexController extends Action
             $this->render('cadastrarse');
             
         }
+    }
 
     }
 

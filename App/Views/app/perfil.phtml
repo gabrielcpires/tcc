@@ -100,7 +100,7 @@
                         </select>
                     </div>
                 </div>
-                <?php if (isset($_GET['email']) &&$_GET['email'] == 'cadastrado' ) { ?>
+                <?php if (isset($_GET['email']) && $_GET['email'] == 'cadastrado') { ?>
                     <small class="form-text text-danger"> E-mail já cadastrado!</small>
                 <?php } ?>
                 <div class="l2">
@@ -210,6 +210,10 @@
         </div>
     </div>
 </div>
+<footer class="rodape">
+    <img src="/img/logo1.png" alt="Logo Compartilhando Esperança" class="logo">
+    <p>&copy; 2023 <span id="anoAtual"></span> Compartilhando Esperança. Todos os direitos reservados.</p>
+</footer>
 
 <script>
     function previewImage(event) {

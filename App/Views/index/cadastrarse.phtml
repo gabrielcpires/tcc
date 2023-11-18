@@ -5,24 +5,24 @@
             <div class="input-group">
                 <label for="username">Nome</label>
                 <input type="text" name="nome" id="username" placeholder=""
-                    value="<?php echo $this->view->usuario['nome'] ?>">
+                    value="<?php if(isset($this->view->usuario['nome'])){ echo $this->view->usuario['nome']; } ?>">
             </div>
             <div class="input-group">
                 <label for="username">Email</label>
                 <input type="email" name="email" id="username" placeholder=""
-                    value="<?php echo $this->view->usuario['email'] ?>">
+                    value="<?php if(isset($this->view->usuario['email'])){  echo $this->view->usuario['email'];} ?>">
             </div>
             <div class="input-group">
                 <label for="password">Senha</label>
                 <input type="password" name="senha" id="password" placeholder=""
-                    value="<?php echo $this->view->usuario['senha'] ?>">
+                    value="<?php if(isset($this->view->usuario['email'])){echo $this->view->usuario['senha'];} ?>">
                 <div class="forgot">
                     <a rel="noopener noreferrer" href="#"></a>
                 </div>
             </div>
             <button class="sign" type="submit"> Cadastrar</button>
 
-            <?php if ($this->view->erroCadastro) { ?>
+            <?php if (isset($this->view->erroCadastro) && $this->view->erroCadastro == true) { ?>
 
                 <small class="form-text text-danger"> Erro ao tentar realizar o cadastro, verifique se os campos foram
                     fechados corretamente</small>
