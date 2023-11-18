@@ -35,7 +35,7 @@ class Usuario extends Model
         $stmt->bindValue(2, $this->__get('email'));
         $stmt->bindValue(3, $this->__get('senha')); //md5() -> hash 32 caracteres
         $random_id = rand(time(), 10000000);
-        $stmt->bindValue(4, $random_id); 
+        $stmt->bindValue(4, $random_id);
         $stmt->execute();
 
         return $this;
@@ -116,12 +116,12 @@ class Usuario extends Model
         WHERE
             nome LIKE ?
     ";
-    
-    $searchTerm = '%' . $this->__get('nome') . '%'; // Adapte isso para o seu contexto
-    
-    $stmt = $this->db->prepare($query);
-    $stmt->bindValue(1, $searchTerm, \PDO::PARAM_STR);
-    $stmt->execute();
+
+        $searchTerm = '%' . $this->__get('nome') . '%'; // Adapte isso para o seu contexto
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $searchTerm, \PDO::PARAM_STR);
+        $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -139,13 +139,29 @@ class Usuario extends Model
 
     public function atualizarDados_email()
     {
-        $query = "UPDATE usuarios SET email=? WHERE id=?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindValue(1, $this->__get('email'));
-        $stmt->bindValue(2, $this->__get('id'));
-        $stmt->execute();
+        // Verificar se o novo email já existe
+        $queryCheckEmail = "SELECT COUNT(*) as count FROM usuarios WHERE email=?";
+        $stmtCheckEmail = $this->db->prepare($queryCheckEmail);
+        $stmtCheckEmail->bindValue(1, $this->__get('email'));
+        $stmtCheckEmail->execute();
+        $resultCheckEmail = $stmtCheckEmail->fetch(\PDO::FETCH_ASSOC);
 
-        return $this;
+        if ($resultCheckEmail['count'] == 0) {
+            // O email não existe, então podemos prosseguir com a atualização
+            $queryUpdate = "UPDATE usuarios SET email=? WHERE id=?";
+            $stmtUpdate = $this->db->prepare($queryUpdate);
+            $stmtUpdate->bindValue(1, $this->__get('email'));
+            $stmtUpdate->bindValue(2, $this->__get('id'));
+
+            try {
+                $stmtUpdate->execute();
+                return $this;
+            } catch (\PDOException $e) {
+                throw new \PDOException("Erro ao executar a atualização: " . $e->getMessage());
+            }
+        } else {
+            throw new \PDOException("O email já está em uso. Escolha outro email.");
+        }
     }
 
     public function atualizarDados_estado()

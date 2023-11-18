@@ -8,10 +8,16 @@ class Route extends Bootstrap{
 
     protected function initRoutes(){
 
-        $routes['home'] = array(
-            'route' => '/',
+        $routes['index'] = array(
+            'route' => '/login',
             'controller' => 'indexController',
             'action' => 'index'
+        );
+
+        $routes['home'] = array(
+            'route' => '/',
+            'controller' => 'AppController',
+            'action' => 'telaInicial'
         );
 
         $routes['cadastrarse'] = array(
@@ -102,13 +108,7 @@ class Route extends Bootstrap{
             'route' => '/get_chat',
             'controller' => 'AppController',
             'action' => 'get_chat'
-        );
-
-       
-
-
-        
-        
+        );   
 
         $this->setRoutes($routes);
     }

@@ -544,6 +544,7 @@ input#search-bar {
   padding: 0.5rem 0.75rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
+  color: black;
   margin-left: -1px;
   line-height: 1.25;
   text-decoration: none;
@@ -696,7 +697,7 @@ input#search-bar {
 .publicacao-main {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   margin: auto;
   margin-top: 10px;
   background-color: white;
@@ -745,7 +746,7 @@ input#search-bar {
 .publicacao-main .linha-2 {
   margin-left: 13px;
   text-align: left;
-  width: 30%;
+  width: 40%;
   height: 70px;
   border-radius: 15px;
   display: flex;
@@ -1631,3 +1632,35 @@ input#search-bar {
   font-weight: 600;
 }
 
+.text-danger{
+  color: red;
+}
+
+.perfil-filtro {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  margin-top: 200px;
+}
+
+.card-filtro {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Ajuste conforme necessário */
+}
+
+h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-select-filtro {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}

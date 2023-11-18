@@ -1,47 +1,47 @@
 <?php $usuario = $this->view->usuario; ?>
 <div id="cabecalho">
-	<div class="logo-search">
-		<div class="logo">
-			<a href="/telaInicial">
-				<img src="/img/logo1.png" alt="">
-			</a>
-		</div>
-	</div>
-	<div>
-		<ul class="list">
-			<li><img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt="" onclick="toggleMenu()"></li>
-		</ul>
-	</div>
-	<div class="sub-menu-wrap" id="subMenu">
-		<div class="sub-menu">
-			<div class="user-info">
-				<img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" class="imagem-perfil-baixo" alt="">
-				<h2>
-					<?php echo $usuario[0]['nome']; ?>
-				</h2>
-			</div>
-			<hr>
+    <div class="logo-search">
+        <div class="logo">
+            <a href="/telaInicial">
+                <img src="/img/logo1.png" alt="">
+            </a>
+        </div>
+    </div>
+    <div>
+        <ul class="list">
+            <li><img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" alt="" onclick="toggleMenu()"></li>
+        </ul>
+    </div>
+    <div class="sub-menu-wrap" id="subMenu">
+        <div class="sub-menu">
+            <div class="user-info">
+                <img src="<?php echo '/' . $usuario[0]['pathUsuario']; ?>" class="imagem-perfil-baixo" alt="">
+                <h2>
+                    <?php echo $usuario[0]['nome']; ?>
+                </h2>
+            </div>
+            <hr>
 
-			<a href="/perfil" class="sub-menu-link">
-				<img src="img/profile.png" alt="">
-				<p>Perfil</p>
-				<span>></span>
-			</a>
+            <a href="/perfil?id=<?php echo $usuario[0]['id']; ?>" class="sub-menu-link">
+                <img src="img/profile.png" alt="">
+                <p>Perfil</p>
+                <span>></span>
+            </a>
 
-			<a href="/mensagens" class="sub-menu-link">
-				<img src="img/mensagens.png" alt="" >
-				<p>Mensagens</p>
-				<span>></span>
-			</a>
+            <a href="/mensagens" class="sub-menu-link">
+                <img src="img/mensagens.png" alt="">
+                <p>Mensagens</p>
+                <span>></span>
+            </a>
 
-			<a href="/sair" class="sub-menu-link">
-				<img src="img/logout.png" alt="">
-				<p>Sair</p>
-				<span>></span>
-			</a>
+            <a href="/sair" class="sub-menu-link">
+                <img src="img/logout.png" alt="">
+                <p>Sair</p>
+                <span>></span>
+            </a>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 <div id="fundoDesfocado">
     <div id="janelaEdicaoPerfil" style="display:none;">
@@ -62,32 +62,33 @@
                     <label for="nome">Nome:</label>
                     <div class="form-editar-perfil">
                         <input type="text" class="form-control" name="nome" id="nome"
-                            value="<?php echo $usuario[0]['nome']; ?>" >
-                        
+                            value="<?php echo $usuario[0]['nome']; ?>">
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <div class="form-editar-perfil">
+
                         <input type="email" class="form-control" name="email" id="email"
-                            value="<?php echo $usuario[0]['email']; ?>" >
-                        
+                            value="<?php echo $usuario[0]['email']; ?>">
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="senha">Senha:</label>
                     <div class="form-editar-perfil">
-                        <input type="password" class="form-control" name="senha" id="senha" >
-                       
+                        <input type="password" class="form-control" name="senha" id="senha">
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="estado">Selecione a Cidade:</label>
                     <div class="form-editar-perfil">
-                        <select class="form-select" name="estado" id="estado" >
+                        <select class="form-select" name="estado" id="estado">
                             <option value="<?php echo $usuario[0]['id_estado']; ?>" selected>
                                 <?php echo $usuario[0]['nome_cidade']; ?>
                             </option>
@@ -97,10 +98,11 @@
                                 </option>
                             <?php } ?>
                         </select>
-                       
                     </div>
                 </div>
-
+                <?php if (isset($_GET['email']) &&$_GET['email'] == 'cadastrado' ) { ?>
+                    <small class="form-text text-danger"> E-mail já cadastrado!</small>
+                <?php } ?>
                 <div class="l2">
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
@@ -125,8 +127,8 @@
             <a class="add" href="/sair">
                 <!-- Sair -->
             </a>
-            <?php if($_GET['id'] == $_SESSION['id']){?>
-            <button id="editarPerfilButton">Editar Perfil</button>
+            <?php if ($_GET['id'] == $_SESSION['id']) { ?>
+                <button id="editarPerfilButton">Editar Perfil</button>
             <?php } ?>
         </div>
     </div>
@@ -168,16 +170,16 @@
                                 <?php echo $publicacao['titulo'] ?>
                             </strong></p>
                     </div>
-                    <?php if($_GET['id'] == $_SESSION['id']){?>
-                    <form class="form-delete" method="post" action="/excluirPublicacao?id=<?php echo $publicacao['id'] ?>">
-                        <button class="delete-button">
-                            <svg class="delete-svgIcon" viewBox="0 0 448 512">
-                                <path
-                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
-                                </path>
-                            </svg>
-                        </button>
-                    </form>
+                    <?php if ($_GET['id'] == $_SESSION['id']) { ?>
+                        <form class="form-delete" method="post" action="/excluirPublicacao?id=<?php echo $publicacao['id'] ?>">
+                            <button class="delete-button">
+                                <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                    <path
+                                        d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </form>
                     <?php } ?>
                 </div>
             <?php } ?>

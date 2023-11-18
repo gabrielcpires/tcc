@@ -11,16 +11,19 @@ class AppController extends Action
 
     public function telaInicial()
     {
-
-        $this->validaAutenticacao();
+        session_start();
         //recuperação das publicacoes
         $publicacao = Container::getModel('Publicacao');
+
+        if (isset($_SESSION['id'])){
 
         //recuperação dos usuarios
         $usuario = Container::getModel('Usuario');
         $usuario->__set('id', $_SESSION['id']);
         $usuario = $usuario->getUsuarioPorId();
         $this->view->usuario = $usuario;
+
+        }
 
         //Caso queira filtrar as publicacoes para serem somente a do usuario cadastrado (posteriormente adicionar em Perfil)
         //$publicacao->__set('id_usuario', $_SESSION['id']);
@@ -125,7 +128,7 @@ class AppController extends Action
         $publicacao->__set('id', $id);
         $publicacao->deletar();
 
-        header('Location: /perfil');
+        header('Location: /perfil?id=' . $_SESSION['id']);
 
     }
 
@@ -134,16 +137,21 @@ class AppController extends Action
         $this->validaAutenticacao();
         $usuario = Container::getModel('Usuario');
         $usuario->__set('id', $_SESSION['id']);
+        $usuario_id = $usuario->getUsuarioPorId();
 
         if (isset($_POST['nome']) && $_POST['nome'] != "") {
             $usuario->__set('nome', $_POST['nome']);
             $usuario->atualizarDados_nome();
         }
-
-        if (isset($_POST['email']) && $_POST['email'] != "") {
-            $usuario->__set('email', $_POST['email']);
-            $usuario->atualizarDados_email();
+        try {
+            if (isset($_POST['email']) && $_POST['email'] != "") {
+                $usuario->__set('email', $_POST['email']);
+                $usuario->atualizarDados_email();
+            }
+        } catch (\PDOException $e) {
+            header('Location: /perfil?email=cadastrado');
         }
+       
 
         if (isset($_POST['estado']) && $_POST['estado'] != "") {
             $usuario->__set('estado', $_POST['estado']);
@@ -182,7 +190,7 @@ class AppController extends Action
                 $usuario->atualizarDados_imagem();
             }
         }
-        header('Location: /perfil?att=sucess');
+        header('Location: /perfil?att=sucess&id='. $usuario_id[0]['id']);
     }
 
     public function publicacao()
@@ -192,6 +200,11 @@ class AppController extends Action
         //recuperação das publicacoes
         $publicacao = Container::getModel('Publicacao');
         $id = $_GET['id'];
+
+        $usuario = Container::getModel('Usuario');
+        $usuario->__set('id', $_SESSION['id']);
+        $usuario = $usuario->getUsuarioPorId();
+        $this->view->usuario = $usuario;
 
         $publicacao->__set('id', $id);
         $publicacao = $publicacao->getPublicacaoPorId();
@@ -207,7 +220,7 @@ class AppController extends Action
         session_start();
 
         if (!isset($_SESSION['id']) || empty($_SESSION['id']) || !isset($_SESSION['nome']) || empty($_SESSION['nome'])) {
-            header('Location: /?login=erro');
+            header('Location: /login?login=semLogin');
         }
     }
 
@@ -285,11 +298,15 @@ class AppController extends Action
             $user_id = "NOME_DE_ID_QUE_NAO_EXISTE";
         }
 
-
         $usuario = Container::getModel('Usuario');
-        $usuario->__set('id_unico', $user_id);
-        $usuario = $usuario->getUsuarioPorIdUnico();
+        $usuario->__set('id', $_SESSION['id']);
+        $usuario = $usuario->getUsuarioPorId();
         $this->view->usuario = $usuario;
+        
+        $usuario_mensagem = Container::getModel('Usuario');
+        $usuario_mensagem->__set('id_unico', $user_id);
+        $usuario_mensagem = $usuario_mensagem->getUsuarioPorIdUnico();
+        $this->view->usuario_mensagem = $usuario_mensagem;
 
         $this->render('chat');
     }

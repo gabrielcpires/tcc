@@ -1,4 +1,5 @@
-<?php $usuario = $this->view->usuario; ?>
+<?php $usuario_mensagem = $this->view->usuario_mensagem;
+$usuario = $this->view->usuario; ?>
 <div id="cabecalho">
 	<div class="logo-search">
 		<div class="logo">
@@ -22,7 +23,7 @@
 			</div>
 			<hr>
 
-			<a href="/perfil" class="sub-menu-link">
+			<a href="/perfil?id=<?php echo $usuario[0]['id']; ?>" class="sub-menu-link">
 				<img src="img/profile.png" alt="">
 				<p>Perfil</p>
 				<span>></span>
@@ -48,10 +49,10 @@
   <section class="chat-area">
     <header>
       <a href="mensagens" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-      <img src="<?php echo "/" . $usuario[0]['pathUsuario']; ?>" alt="">
+      <img src="<?php echo "/" . $usuario_mensagem[0]['pathUsuario']; ?>" alt="">
       <div class="details">
         <span>
-          <?php echo $usuario[0]['nome']; ?>
+          <?php echo $usuario_mensagem[0]['nome']; ?>
         </span>
       </div>
     </header>
@@ -60,7 +61,7 @@
     </div>
     <form class="typing-area" autocomplete="off">
       <input type="text" class="outgoing_id" name="outgoing_id" value="<?php echo $_SESSION['id_unico']; ?>" hidden>
-      <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $usuario[0]['id_unico']; ?>" hidden>
+      <input type="text" class="incoming_id" name="incoming_id" value="<?php echo $usuario_mensagem[0]['id_unico']; ?>" hidden>
       <input type="text" name="message" class="input-field" placeholder="Digite uma Mensagem" autocomplete="off">
       <button><i class="fab fa-telegram-plane"></i></button>
     </form>

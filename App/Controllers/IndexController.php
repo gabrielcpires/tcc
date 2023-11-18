@@ -32,6 +32,12 @@ class IndexController extends Action
         //sucesso
         $usuario = Container::getModel('Usuario');
 
+        if(strlen($_POST['senha']) == 8){    
+            header('Location: /telaInicial');
+            $this->view->senhaPequena = true;
+            $this->render('cadastrarse');
+        }
+
         $usuario->__set('nome',$_POST['nome']);
         $usuario->__set('email',$_POST['email']);
         $usuario->__set('senha',md5($_POST['senha']));
@@ -39,7 +45,8 @@ class IndexController extends Action
         if($usuario->validarCadastro() && count($usuario->getUsuarioPorEmail()) == 0){
             
             $usuario->salvar();
-            $this->render('cadastro');
+            $this->view->login = isset($_GET['login']) ? $_GET['login'] : '';
+            $this->render('index');
      
         } else {
 
@@ -52,6 +59,7 @@ class IndexController extends Action
             $this->view->erroCadastro = true;
 
             $this->render('cadastrarse');
+            
         }
 
     }

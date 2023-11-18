@@ -30,7 +30,7 @@ class AuthController extends Action{
             header('Location: /telaInicial');
 
         } else{
-            header('Location: /?login=erro');
+            header('Location: /login?login=erro');
         }
        
     }
@@ -38,7 +38,7 @@ class AuthController extends Action{
     public function sair(){
         session_start();
         session_destroy();
-        header('Location: /');
+        header('Location: /login');
     }
 }
 
