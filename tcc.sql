@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18/10/2023 às 01:42
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 02/05/2024 às 16:10
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -940,6 +940,34 @@ INSERT INTO `estados` (`id`, `nome_estado`, `uf`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `mensagem`
+--
+
+CREATE TABLE `mensagem` (
+  `msg_id` int(11) NOT NULL,
+  `incoming_msg_id` int(255) NOT NULL,
+  `outgoing_msg_id` int(255) NOT NULL,
+  `msg` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Despejando dados para a tabela `mensagem`
+--
+
+INSERT INTO `mensagem` (`msg_id`, `incoming_msg_id`, `outgoing_msg_id`, `msg`) VALUES
+(1, 0, 1263433284, 'Salve'),
+(2, 1263433284, 0, 'Salve seu boiolinha gay'),
+(3, 1263433284, 0, 'teste'),
+(4, 0, 1263433284, 'teste'),
+(5, 1263433284, 0, 'teste'),
+(6, 1263433284, 1533599319, 'Salve seu boiola main volibear'),
+(7, 1533599319, 1263433284, 'Sou mesmo, e com orgulho!'),
+(8, 1263433284, 1533599319, 'entendi, desculpe o preconceito'),
+(9, 1533599319, 1263433284, 'tudo bem manin ');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `publicacoes`
 --
 
@@ -961,7 +989,11 @@ CREATE TABLE `publicacoes` (
 
 INSERT INTO `publicacoes` (`id`, `id_usuario`, `titulo`, `texto`, `path`, `contato`, `pathUsuario`, `data`, `id_estado`) VALUES
 (33, 11, 'Teste', 'Doando cesta básica...', 'arquivos/652d968584de4.jpeg', 'WhatsApp: 31 994163270', '', '2023-10-16 17:01:09', 0),
-(34, 11, 'teste', 'teste', 'arquivos/652daadebbf79.png', 'WhatsApp: 31 994163270', '', '2023-10-16 18:27:58', 0);
+(34, 11, 'teste', 'teste', 'arquivos/652daadebbf79.png', 'WhatsApp: 31 994163270', '', '2023-10-16 18:27:58', 0),
+(35, 10, 'Teste', 'teste', NULL, '', '', '2024-05-02 10:48:55', 0),
+(36, 12, 'Albano', 'teste', 'arquivos/66339d569ac09.png', '', '', '2024-05-02 11:04:06', 0),
+(37, 12, 'teste', 'teste', NULL, '', '', '2024-05-02 11:07:50', 0),
+(38, 13, 'teste', 'teste', NULL, '', '', '2024-05-02 11:07:57', 0);
 
 -- --------------------------------------------------------
 
@@ -975,16 +1007,17 @@ CREATE TABLE `usuarios` (
   `email` varchar(150) NOT NULL,
   `senha` varchar(32) NOT NULL,
   `pathUsuario` varchar(100) DEFAULT 'arquivos/userDefault.png',
-  `id_estado` int(11) NOT NULL
+  `id_estado` int(11) NOT NULL,
+  `id_unico` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `pathUsuario`, `id_estado`) VALUES
-(10, 'Gabriel', 'gabriel@teste.com', '81dc9bdb52d04dc20036dbd8313ed055', 'arquivos/651f4ad2362df.png', 1565),
-(11, 'CPwel', 'gabriel@teste', '202cb962ac59075b964b07152d234b70', 'arquivos/652763f33e429.png', 1770);
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `pathUsuario`, `id_estado`, `id_unico`) VALUES
+(12, 'Albano', 'albano@teste.com', '25d55ad283aa400af464c76d713c07ad', 'arquivos/66339d9d90dee.png', 1575, 1263433284),
+(13, 'Gabriel', 'gabriel@teste.com', '25d55ad283aa400af464c76d713c07ad', 'arquivos/userDefault.png', 0, 1533599319);
 
 --
 -- Índices para tabelas despejadas
@@ -1001,6 +1034,12 @@ ALTER TABLE `cidades`
 --
 ALTER TABLE `estados`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `mensagem`
+--
+ALTER TABLE `mensagem`
+  ADD PRIMARY KEY (`msg_id`);
 
 --
 -- Índices de tabela `publicacoes`
@@ -1025,16 +1064,22 @@ ALTER TABLE `estados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
+-- AUTO_INCREMENT de tabela `mensagem`
+--
+ALTER TABLE `mensagem`
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de tabela `publicacoes`
 --
 ALTER TABLE `publicacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
