@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/05/2024 às 16:10
+-- Tempo de geração: 02/05/2024 às 16:14
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -977,7 +977,6 @@ CREATE TABLE `publicacoes` (
   `titulo` varchar(80) NOT NULL,
   `texto` varchar(200) NOT NULL,
   `path` varchar(100) DEFAULT 'arquivos/semFotoPublicacao.jpg',
-  `contato` varchar(100) NOT NULL,
   `pathUsuario` varchar(100) NOT NULL,
   `data` datetime DEFAULT current_timestamp(),
   `id_estado` int(5) NOT NULL
@@ -987,13 +986,13 @@ CREATE TABLE `publicacoes` (
 -- Despejando dados para a tabela `publicacoes`
 --
 
-INSERT INTO `publicacoes` (`id`, `id_usuario`, `titulo`, `texto`, `path`, `contato`, `pathUsuario`, `data`, `id_estado`) VALUES
-(33, 11, 'Teste', 'Doando cesta básica...', 'arquivos/652d968584de4.jpeg', 'WhatsApp: 31 994163270', '', '2023-10-16 17:01:09', 0),
-(34, 11, 'teste', 'teste', 'arquivos/652daadebbf79.png', 'WhatsApp: 31 994163270', '', '2023-10-16 18:27:58', 0),
-(35, 10, 'Teste', 'teste', NULL, '', '', '2024-05-02 10:48:55', 0),
-(36, 12, 'Albano', 'teste', 'arquivos/66339d569ac09.png', '', '', '2024-05-02 11:04:06', 0),
-(37, 12, 'teste', 'teste', NULL, '', '', '2024-05-02 11:07:50', 0),
-(38, 13, 'teste', 'teste', NULL, '', '', '2024-05-02 11:07:57', 0);
+INSERT INTO `publicacoes` (`id`, `id_usuario`, `titulo`, `texto`, `path`, `pathUsuario`, `data`, `id_estado`) VALUES
+(33, 11, 'Teste', 'Doando cesta básica...', 'arquivos/652d968584de4.jpeg', '', '2023-10-16 17:01:09', 0),
+(34, 11, 'teste', 'teste', 'arquivos/652daadebbf79.png', '', '2023-10-16 18:27:58', 0),
+(35, 10, 'Teste', 'teste', NULL, '', '2024-05-02 10:48:55', 0),
+(36, 12, 'Albano', 'teste', 'arquivos/66339d569ac09.png', '', '2024-05-02 11:04:06', 0),
+(37, 12, 'teste', 'teste', NULL, '', '2024-05-02 11:07:50', 0),
+(38, 13, 'teste', 'teste', NULL, '', '2024-05-02 11:07:57', 0);
 
 -- --------------------------------------------------------
 
